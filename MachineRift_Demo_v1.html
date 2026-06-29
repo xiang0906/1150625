@@ -36,6 +36,21 @@ body{background:#0c1628;display:flex;flex-direction:column;align-items:center;ju
 #upgradeBtn:hover{border-color:#88ff4488;}
 #soundBtn{background:linear-gradient(135deg,#14142a,#1c1c32);border:1px solid #aa88ff44;color:#aa88ff;padding:5px 12px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);white-space:nowrap;}
 #soundBtn:hover{border-color:#aa88ffaa;box-shadow:0 0 10px #aa88ff22;}
+#pauseBtn{background:linear-gradient(135deg,#1a1400,#261e00);border:1px solid #ffe00044;color:#ffe000;padding:5px 12px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);white-space:nowrap;}
+#pauseBtn:hover{border-color:#ffe000aa;box-shadow:0 0 10px #ffe00022;}
+#pauseBtn.paused{background:linear-gradient(135deg,#001a00,#002800);border-color:#00ff4466;color:#00ff88;}
+#pauseBtn.paused:hover{border-color:#00ff44aa;box-shadow:0 0 10px #00ff4422;}
+#pauseOverlay{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,18,32,0.94),rgba(14,24,40,0.92));z-index:15;}
+#pauseOverlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.01) 2px,rgba(0,229,255,0.01) 4px);pointer-events:none;}
+#pauseOverlay h2{font-size:36px;letter-spacing:8px;color:#ffe000;text-shadow:0 0 24px #ffe000aa,0 0 48px #ffe00044;margin-bottom:8px;}
+#pauseOverlay .p-sub{font-size:11px;color:#ffe00066;letter-spacing:4px;margin-bottom:36px;}
+#pauseOverlay .p-stats{display:flex;gap:32px;margin-bottom:32px;font-size:12px;}
+#pauseOverlay .p-stat{text-align:center;}
+#pauseOverlay .p-stat-val{font-size:22px;font-weight:bold;color:#fff;display:block;margin-top:4px;}
+#pauseOverlay .p-stat-lbl{color:#00e5ff66;font-size:10px;letter-spacing:2px;}
+#confirmQuit{display:none;flex-direction:column;align-items:center;margin-top:8px;}
+#confirmQuit .q-msg{font-size:12px;color:#ff444488;letter-spacing:2px;margin-bottom:12px;}
+#confirmQuit .q-btns{display:flex;gap:10px;}
 .overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,18,32,0.96),rgba(14,24,40,0.94));z-index:10;}
 .overlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.012) 2px,rgba(0,229,255,0.012) 4px);pointer-events:none;animation:sc 8s linear infinite;}
 @keyframes sc{0%{background-position:0 0}100%{background-position:0 200px}}
@@ -121,6 +136,8 @@ body{background:#0c1628;display:flex;flex-direction:column;align-items:center;ju
       </div>
       <div class="tb-spacer"></div>
       <div class="tb-group">
+        <button id="pauseBtn" onclick="togglePause()">⏸ 暫停</button>
+        <div class="tb-divider"></div>
         <button id="soundBtn" onclick="toggleSound()">🔊 音效：開</button>
         <div class="tb-divider"></div>
         <button id="waveBtn" onclick="manualStartWave()">▶ 第 1 波</button>
@@ -161,7 +178,27 @@ body{background:#0c1628;display:flex;flex-direction:column;align-items:center;ju
     <div id="countdownLabel">敵軍來襲</div>
     <button id="skipBtn" onclick="skipCountdown()">▶▶ 立即開始</button>
   </div>
-  <div id="tutOverlay">
+  <!-- Pause Overlay -->
+  <div id="pauseOverlay">
+    <h2>暫停</h2>
+    <div class="p-sub">SYSTEM PAUSED</div>
+    <div class="p-stats">
+      <div class="p-stat"><span class="p-stat-lbl">金幣</span><span class="p-stat-val" id="pGold">—</span></div>
+      <div class="p-stat"><span class="p-stat-lbl">基地血量</span><span class="p-stat-val" id="pHP">—</span></div>
+      <div class="p-stat"><span class="p-stat-lbl">波次</span><span class="p-stat-val" id="pWave">—</span></div>
+      <div class="p-stat"><span class="p-stat-lbl">得分</span><span class="p-stat-val" id="pScore">—</span></div>
+    </div>
+    <button class="overlay-btn" onclick="togglePause()" style="border-color:#ffe000;color:#ffe000;">[ 繼續遊戲 ]</button>
+    <button class="overlay-btn" onclick="showConfirmQuit()" style="border-color:#ff444466;color:#ff4444;font-size:11px;padding:7px 26px;margin-top:4px;">[ 退出至主選單 ]</button>
+    <div id="confirmQuit">
+      <div class="q-msg">// 確定放棄本局？進度不會保存</div>
+      <div class="q-btns">
+        <button class="overlay-btn" onclick="confirmQuit()" style="border-color:#ff4444;color:#ff4444;font-size:12px;padding:7px 24px;">[ 確認退出 ]</button>
+        <button class="overlay-btn" onclick="hideConfirmQuit()" style="border-color:#00e5ff66;color:#00e5ff66;font-size:12px;padding:7px 24px;">[ 取消 ]</button>
+      </div>
+    </div>
+  </div>
+    <div id="tutOverlay">
     <div id="tutHeader"><h2>// 戰術簡報</h2><button id="tutClose" onclick="closeTutorial()">✕ 關閉</button></div>
     <div id="tutNav"></div>
     <div id="tutBody"></div>
@@ -216,7 +253,7 @@ const ctx=canvas.getContext('2d');
 ctx.scale(DPR,DPR);
 
 let game=null,loopId=null;
-function newGame(){return{gold:200,baseHP:10,score:0,waveIndex:0,waveActive:false,gameOver:false,victory:false,towers:[],enemies:[],bullets:[],particles:[],floatTexts:[],selType:null,selTower:null,spawnQ:[],spawnTimer:0,spawnInterval:58,totalEnemies:0,animFrame:0,map:MAP_DEF.map(r=>[...r]),countdown:0,inCountdown:false,scanY:0,radarAngle:0,screenShake:0,shakeX:0,shakeY:0};}
+function newGame(){return{gold:200,baseHP:10,score:0,waveIndex:0,waveActive:false,gameOver:false,victory:false,paused:false,towers:[],enemies:[],bullets:[],particles:[],floatTexts:[],selType:null,selTower:null,spawnQ:[],spawnTimer:0,spawnInterval:58,totalEnemies:0,animFrame:0,map:MAP_DEF.map(r=>[...r]),countdown:0,inCountdown:false,scanY:0,radarAngle:0,screenShake:0,shakeX:0,shakeY:0};}
 
 // ═══════════════════════════════════════════════════════════════
 // WEB AUDIO ENGINE
@@ -227,8 +264,8 @@ let audioCtx=null,soundOn=true;
 // HIGH SCORE (LocalStorage)
 // ══════════════════════════════════
 const HS_KEY='machineRift_highScore';
-function getHS(){try{return parseInt(localStorage.getItem(HS_KEY))||0;}catch(e){return 0;}}
-function saveHS(score){try{if(score>getHS())localStorage.setItem(HS_KEY,score);}catch(e){}}
+function getHS(){try{return parseInt(sessionStorage.getItem(HS_KEY))||0;}catch(e){return 0;}}
+function saveHS(score){try{if(score>getHS())sessionStorage.setItem(HS_KEY,score);}catch(e){}}
 function fmtHS(n){return n>0?'最高分：'+n:'尚無紀錄';}
 
 function getAC(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
@@ -296,6 +333,46 @@ function sfxGold(){playTone(1000,'sine',0.07,0.06);playTone(1500,'sine',0.05,0.0
 function sfxWaveStart(){playTone(200,'sawtooth',0.1,0.08);playTone(250,'sawtooth',0.09,0.08,0.1);playTone(300,'sawtooth',0.08,0.07,0.2);playTone(400,'square',0.06,0.06,0.3);}
 function sfxBaseHit(){playNoise(0.15,0.18);playTone(100,'sawtooth',0.15,0.1);playTone(80,'sine',0.2,0.1,0.05);}
 function toggleSound(){soundOn=!soundOn;document.getElementById('soundBtn').textContent='🔊 音效：'+(soundOn?'開':'關');if(soundOn)getAC();}
+function togglePause(){
+  if(!game||game.gameOver||game.victory)return;
+  game.paused=!game.paused;
+  const btn=document.getElementById('pauseBtn');
+  const overlay=document.getElementById('pauseOverlay');
+  if(game.paused){
+    // Pause: freeze countdown interval, show overlay
+    if(cdInterval){clearInterval(cdInterval);cdInterval=null;}
+    btn.textContent='▶ 繼續';btn.classList.add('paused');
+    document.getElementById('pGold').textContent=game.gold;
+    document.getElementById('pHP').textContent=game.baseHP;
+    document.getElementById('pWave').textContent=game.waveIndex+' / 3';
+    document.getElementById('pScore').textContent=game.score;
+    overlay.style.display='flex';
+    hideConfirmQuit();
+    // Stop rAF loop
+    if(loopId){cancelAnimationFrame(loopId);loopId=null;}
+  } else {
+    // Resume
+    btn.textContent='⏸ 暫停';btn.classList.remove('paused');
+    overlay.style.display='none';
+    // Restart countdown if it was mid-count
+    if(game.inCountdown&&game.countdown>0){
+      cdInterval=setInterval(()=>{
+        if(!game||game.paused){clearInterval(cdInterval);return;}
+        game.countdown--;
+        if(game.countdown<=0){clearInterval(cdInterval);cdInterval=null;game.inCountdown=false;hideCD();execStartWave();}
+        else showCDNum(game.countdown,pendingWave);
+      },1000);
+    }
+    loopId=requestAnimationFrame(loop);
+  }
+}
+function showConfirmQuit(){document.getElementById('confirmQuit').style.display='flex';}
+function hideConfirmQuit(){document.getElementById('confirmQuit').style.display='none';}
+function confirmQuit(){
+  document.getElementById('pauseOverlay').style.display='none';
+  if(game)game.paused=false;
+  goMainMenu();
+}
 
 // ═══════════════════════════════════════════════════════════════
 // FLOAT TEXTS (金幣飄字 / 傷害數字)
@@ -749,6 +826,9 @@ function startGame(){
   document.getElementById('waveBtn').disabled=false;document.getElementById('waveBtn').textContent='▶ 第 1 波';document.getElementById('waveBtn').style.display='';
   document.getElementById('sellBtn').style.display='none';document.getElementById('upgradeBtn').style.display='none';
   document.getElementById('hint').textContent='← 選擇塔種後點空地建造';
+  document.getElementById('pauseBtn').textContent='⏸ 暫停';
+  document.getElementById('pauseBtn').classList.remove('paused');
+  document.getElementById('pauseOverlay').style.display='none';
   loopId=requestAnimationFrame(loop);
 }
 function restartGame(){startGame();}
@@ -897,6 +977,13 @@ function closeTutorial(){document.getElementById('tutOverlay').style.display='no
 function tutGo(d){tutDone.add(tutCur);const n=tutCur+d;if(n>=TUT.length){closeTutorial();return;}tutCur=Math.max(0,n);tutRender();}
 function tutJump(i){tutDone.add(tutCur);tutCur=i;tutRender();}
 function tutRender(){const s=TUT[tutCur];let nav='';TUT.forEach((_,i)=>{const cl=i===tutCur?'active':tutDone.has(i)?'done':'';nav+=`<div class="tut-dot ${cl}" onclick="tutJump(${i})">${tutDone.has(i)&&i!==tutCur?'✓':i+1}</div>`;if(i<TUT.length-1)nav+='<div class="tut-line"></div>';});document.getElementById('tutNav').innerHTML=nav;document.getElementById('tutBody').innerHTML=`<div class="tut-card"><div class="tut-step-header"><div class="tut-step-num">${tutCur+1}</div><div><p class="tut-step-title">${s.title}</p><p class="tut-step-sub">${s.sub}</p></div></div>${s.html}</div>`;document.getElementById('tutPrev').style.display=tutCur===0?'none':'inline-block';const nb=document.getElementById('tutNext');if(tutCur===TUT.length-1){nb.textContent='出發 ▶';nb.onclick=()=>closeTutorial();}else{nb.textContent='下一頁 ▶';nb.onclick=()=>tutGo(1);}}
+// ESC key to toggle pause
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(game&&!game.gameOver&&!game.victory)togglePause();
+  }
+});
+
 // Init: show HS on menu
 document.getElementById('menuHS').textContent=fmtHS(getHS());
 </script>
