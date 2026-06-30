@@ -7,115 +7,164 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0c1628;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Share Tech Mono','Courier New',monospace;color:#00e5ff;overflow:hidden;}
+body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Share Tech Mono','Courier New',monospace;color:#0a3a55;overflow:hidden;}
 #gameWrapper{position:relative;display:flex;flex-direction:column;align-items:center;}
-#gameCanvas{display:block;cursor:crosshair;border:1px solid #00e5ff44;box-shadow:0 0 0 1px #00e5ff1a,0 0 40px #00e5ff28,0 0 80px #00e5ff06;}
-#toolbar{display:flex;flex-direction:column;padding:0;background:linear-gradient(180deg,#102030,#0a1220);border:1px solid #00e5ff33;border-top:none;width:100%;}
-#toolbarHint{font-size:10px;color:#00e5ff77;padding:3px 12px;border-bottom:1px solid #00e5ff18;letter-spacing:1px;min-height:20px;display:flex;align-items:center;background:#00e5ff06;}
+#gameCanvas{display:block;cursor:crosshair;border:1px solid #aaccdd;border-radius:8px 8px 0 0;box-shadow:0 8px 40px rgba(0,100,160,0.18),0 2px 8px rgba(0,80,130,0.1);}
+#toolbar{display:flex;flex-direction:column;padding:0;background:linear-gradient(180deg,#e8eff6,#d8e2ec);border:1px solid #bcd4e2;border-top:none;border-radius:0 0 8px 8px;width:100%;box-shadow:0 4px 16px rgba(0,90,140,0.1);}
+#toolbarHint{font-size:10px;color:#3a7a9a;padding:4px 12px;border-bottom:1px solid #cfe0ea;letter-spacing:1px;min-height:20px;display:flex;align-items:center;background:rgba(0,150,210,0.04);}
 #toolbarMain{display:flex;align-items:center;padding:5px 8px;gap:0;}
 .tb-group{display:flex;align-items:center;gap:5px;flex-shrink:0;}
-.tb-divider{width:1px;height:22px;background:#00e5ff22;margin:0 10px;flex-shrink:0;}
+.tb-divider{width:1px;height:22px;background:#bcd4e2;margin:0 10px;flex-shrink:0;}
 .tb-spacer{flex:1;}
-.tower-btn{background:linear-gradient(135deg,#102030,#152535);border:1px solid #00e5ff2a;color:#00e5ff;padding:5px 13px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;white-space:nowrap;position:relative;overflow:hidden;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-.tower-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,#00e5ff28,transparent);transition:left 0.4s;}
+.tower-btn:active,#waveBtn:active,#sellBtn:active,#upgradeBtn:active,#soundBtn:active,#pauseBtn:active{transform:translateY(0);transition:transform 0.05s;}
+.tower-btn{background:linear-gradient(135deg,#ffffff,#eef5fa);border:1px solid #99c4dd;color:#0077aa;padding:5px 13px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;white-space:nowrap;position:relative;overflow:hidden;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+.tower-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,#00aadd33,transparent);transition:left 0.4s;}
 .tower-btn:hover::before{left:100%;}
-.tower-btn:hover{border-color:#00e5ff88;box-shadow:0 0 12px #00e5ff33;}
-.tower-btn.selected{background:linear-gradient(135deg,#062535,#08344a);border-color:#00e5ff;color:#fff;box-shadow:0 0 16px #00e5ff33;}
-.tower-btn.fire-btn{border-color:#ff620022;color:#ff8844;}
-.tower-btn.fire-btn:hover{border-color:#ff620088;}
-.tower-btn.fire-btn.selected{background:linear-gradient(135deg,#281200,#3a1a00);border-color:#ff6200;color:#fff;box-shadow:0 0 16px #ff620033;}
-.tower-btn.ice-btn{border-color:#44aaff22;color:#66ccff;}
-.tower-btn.ice-btn:hover{border-color:#44aaff88;}
-.tower-btn.ice-btn.selected{background:linear-gradient(135deg,#081828,#0a2238);border-color:#44aaff;color:#fff;box-shadow:0 0 16px #44aaff33;}
-#waveBtn{margin-left:auto;background:linear-gradient(135deg,#021e00,#032e00);border:1px solid #00ff4444;color:#00ff88;padding:5px 16px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-#waveBtn:hover{border-color:#00ff44aa;box-shadow:0 0 16px #00ff4433;}
+.tower-btn:hover{border-color:#0088cc;background:linear-gradient(135deg,#e4f3fb,#d4ebf6);box-shadow:0 4px 14px rgba(0,140,200,0.35);transform:translateY(-2px);}
+.tower-btn.selected{background:linear-gradient(135deg,#00aadd,#0088cc);border-color:#0077aa;color:#fff;box-shadow:0 2px 14px rgba(0,150,210,0.4);}
+.tower-btn.fire-btn{border-color:#ffb088;color:#dd5500;}
+.tower-btn.fire-btn:hover{border-color:#ee5500;background:linear-gradient(135deg,#fff0e4,#ffe2cc);box-shadow:0 4px 14px rgba(255,100,0,0.35);transform:translateY(-2px);}
+.tower-btn.fire-btn.selected{background:linear-gradient(135deg,#ff8833,#ee6600);border-color:#dd5500;color:#fff;box-shadow:0 2px 14px rgba(255,100,0,0.4);}
+.tower-btn.ice-btn{border-color:#99ccf5;color:#0088dd;}
+.tower-btn.ice-btn:hover{border-color:#2288dd;background:linear-gradient(135deg,#e4f0fb,#d2e6f8);box-shadow:0 4px 14px rgba(50,150,238,0.35);transform:translateY(-2px);}
+.tower-btn.ice-btn.selected{background:linear-gradient(135deg,#55aaf5,#3388dd);border-color:#2277cc;color:#fff;box-shadow:0 2px 14px rgba(50,150,238,0.4);}
+#waveBtn{margin-left:auto;background:linear-gradient(135deg,#22cc66,#11aa55);border:1px solid #0a9944;color:#fff;padding:5px 16px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+#waveBtn:hover{border-color:#0a9944;box-shadow:0 4px 18px rgba(20,180,80,0.5);transform:translateY(-2px);filter:brightness(1.08);}
 #waveBtn:disabled{opacity:0.3;cursor:not-allowed;pointer-events:none;}
-#sellBtn{background:linear-gradient(135deg,#220608,#300a0c);border:1px solid #ff222222;color:#ff5555;padding:5px 13px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;display:none;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-#sellBtn:hover{border-color:#ff222288;}
-#upgradeBtn{background:linear-gradient(135deg,#0a1e0a,#102810);border:1px solid #88ff4422;color:#88ff44;padding:5px 13px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;display:none;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-#upgradeBtn:hover{border-color:#88ff4488;}
-#soundBtn{background:linear-gradient(135deg,#14142a,#1c1c32);border:1px solid #aa88ff44;color:#aa88ff;padding:5px 12px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);white-space:nowrap;}
-#soundBtn:hover{border-color:#aa88ffaa;box-shadow:0 0 10px #aa88ff22;}
-#pauseBtn{background:linear-gradient(135deg,#1a1400,#261e00);border:1px solid #ffe00044;color:#ffe000;padding:5px 12px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);white-space:nowrap;}
-#pauseBtn:hover{border-color:#ffe000aa;box-shadow:0 0 10px #ffe00022;}
-#pauseBtn.paused{background:linear-gradient(135deg,#001a00,#002800);border-color:#00ff4466;color:#00ff88;}
-#pauseBtn.paused:hover{border-color:#00ff44aa;box-shadow:0 0 10px #00ff4422;}
-#pauseOverlay{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,18,32,0.94),rgba(14,24,40,0.92));z-index:15;}
+#sellBtn{background:linear-gradient(135deg,#ffeeee,#ffdddd);border:1px solid #ee9999;color:#cc3333;padding:5px 13px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;display:none;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+#sellBtn:hover{border-color:#cc2222;background:linear-gradient(135deg,#ffe0e0,#ffcccc);box-shadow:0 4px 14px rgba(220,50,50,0.35);transform:translateY(-2px);}
+#upgradeBtn{background:linear-gradient(135deg,#eefadd,#ddf5cc);border:1px solid #99dd66;color:#449911;padding:5px 13px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;display:none;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+#upgradeBtn:hover{border-color:#44aa11;background:linear-gradient(135deg,#e6f7d6,#d6f0c0);box-shadow:0 4px 14px rgba(90,180,30,0.35);transform:translateY(-2px);}
+#soundBtn{background:linear-gradient(135deg,#f0eeff,#e6e0fa);border:1px solid #b8a8ee;color:#7755cc;padding:5px 12px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);white-space:nowrap;}
+#soundBtn:hover{border-color:#7755cc;background:linear-gradient(135deg,#ece6fb,#ddd0f5);box-shadow:0 4px 14px rgba(120,85,205,0.35);transform:translateY(-2px);}
+#pauseBtn{background:linear-gradient(135deg,#fffadd,#fff3cc);border:1px solid #e6c84d;color:#aa8800;padding:5px 12px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);white-space:nowrap;}
+#pauseBtn:hover{border-color:#cc9900;background:linear-gradient(135deg,#fff6dd,#ffeec0);box-shadow:0 4px 14px rgba(220,170,0,0.4);transform:translateY(-2px);}
+#pauseBtn.paused{background:linear-gradient(135deg,#ddf5e6,#ccf0dd);border-color:#22bb66;color:#0a9944;}
+#pauseBtn.paused:hover{border-color:#0a9944;box-shadow:0 4px 14px rgba(20,180,80,0.4);transform:translateY(-2px);}
+#pauseOverlay{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(238,245,250,0.95),rgba(224,236,246,0.93));backdrop-filter:blur(3px);z-index:15;}
 #pauseOverlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.01) 2px,rgba(0,229,255,0.01) 4px);pointer-events:none;}
-#pauseOverlay h2{font-size:36px;letter-spacing:8px;color:#ffe000;text-shadow:0 0 24px #ffe000aa,0 0 48px #ffe00044;margin-bottom:8px;}
-#pauseOverlay .p-sub{font-size:11px;color:#ffe00066;letter-spacing:4px;margin-bottom:36px;}
+#pauseOverlay h2{font-size:36px;letter-spacing:8px;color:#cc9900;text-shadow:0 2px 12px rgba(200,150,0,0.3);margin-bottom:8px;}
+#pauseOverlay .p-sub{font-size:11px;color:#bb9933;letter-spacing:4px;margin-bottom:36px;}
 #pauseOverlay .p-stats{display:flex;gap:32px;margin-bottom:32px;font-size:12px;}
 #pauseOverlay .p-stat{text-align:center;}
-#pauseOverlay .p-stat-val{font-size:22px;font-weight:bold;color:#fff;display:block;margin-top:4px;}
-#pauseOverlay .p-stat-lbl{color:#00e5ff66;font-size:10px;letter-spacing:2px;}
+#pauseOverlay .p-stat-val{font-size:22px;font-weight:bold;color:#0a3a55;display:block;margin-top:4px;}
+#pauseOverlay .p-stat-lbl{color:#5599bb;font-size:10px;letter-spacing:2px;}
 #confirmQuit{display:none;flex-direction:column;align-items:center;margin-top:8px;}
 #confirmQuit .q-msg{font-size:12px;color:#ff444488;letter-spacing:2px;margin-bottom:12px;}
 #confirmQuit .q-btns{display:flex;gap:10px;}
-.overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,18,32,0.96),rgba(14,24,40,0.94));z-index:10;}
-.overlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.012) 2px,rgba(0,229,255,0.012) 4px);pointer-events:none;animation:sc 8s linear infinite;}
+/* Wave event banner */
+#waveEventBanner{position:absolute;top:42px;left:50%;transform:translateX(-50%);display:none;z-index:8;text-align:center;pointer-events:none;animation:bannerIn 0.4s ease-out forwards;}
+@keyframes bannerIn{0%{opacity:0;transform:translateX(-50%) translateY(-10px);}100%{opacity:1;transform:translateX(-50%) translateY(0);}}
+#waveEventBanner .ev-title{font-size:13px;letter-spacing:3px;padding:5px 22px;border:1px solid #ff880088;color:#ff8800;background:linear-gradient(135deg,rgba(10,18,32,0.95),rgba(20,12,0,0.9));clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);text-shadow:0 0 12px #ff880088;}
+#waveEventBanner .ev-desc{font-size:10px;color:#ff880077;letter-spacing:2px;margin-top:3px;}
+.overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(208,222,236,0.95),rgba(190,206,224,0.93));backdrop-filter:blur(3px);z-index:10;}
+.overlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,130,190,0.018) 2px,rgba(0,130,190,0.018) 4px);pointer-events:none;animation:sc 8s linear infinite;}
 @keyframes sc{0%{background-position:0 0}100%{background-position:0 200px}}
-.overlay h1{font-size:52px;letter-spacing:10px;text-transform:uppercase;color:#00e5ff;text-shadow:0 0 30px #00e5ffaa,0 0 60px #00e5ff44;margin-bottom:6px;line-height:1.1;text-align:center;animation:glitch 5s infinite;}
-@keyframes glitch{0%,94%,100%{text-shadow:0 0 30px #00e5ffaa,0 0 60px #00e5ff44;}95%{text-shadow:3px 0 #ff00aa66,-3px 0 #00e5ff66,0 0 30px #00e5ffaa;}97%{text-shadow:-2px 0 #ff00aa66,2px 0 #00e5ff66,0 0 30px #00e5ffaa;}}
-.overlay .subtitle{font-size:11px;color:#00e5ff55;letter-spacing:5px;margin-bottom:28px;text-transform:uppercase;}
-.overlay-btn{background:transparent;border:1px solid #00e5ff;color:#00e5ff;padding:11px 36px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:13px;letter-spacing:3px;transition:all 0.25s;margin:5px;position:relative;overflow:hidden;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);}
+.overlay h1{font-size:52px;letter-spacing:10px;text-transform:uppercase;color:#005580;text-shadow:0 2px 16px rgba(0,100,150,0.3),0 0 30px rgba(0,140,200,0.2);margin-bottom:6px;line-height:1.1;text-align:center;animation:glitch 5s infinite;}
+@keyframes glitch{0%,94%,100%{text-shadow:0 2px 16px rgba(0,100,150,0.3),0 0 30px rgba(0,140,200,0.2);}95%{text-shadow:2px 0 #ee4488aa,-2px 0 #0099ccaa,0 2px 16px rgba(0,100,150,0.3);}97%{text-shadow:-2px 0 #ee4488aa,2px 0 #0099ccaa,0 2px 16px rgba(0,100,150,0.3);}}
+.overlay .subtitle{font-size:11px;color:#3a6a85;letter-spacing:5px;margin-bottom:28px;text-transform:uppercase;}
+.overlay-btn{background:linear-gradient(135deg,#ffffff,#eef6fb);border:1px solid #0088bb;color:#005580;padding:11px 36px;cursor:pointer;font-family:'Share Tech Mono','Courier New',monospace;font-size:13px;letter-spacing:3px;transition:all 0.25s;margin:5px;position:relative;overflow:hidden;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);}
 .overlay-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,#00e5ff33,transparent);transition:left 0.5s;}
 .overlay-btn:hover::before{left:100%;}
 .overlay-btn:hover{background:#00e5ff1e;box-shadow:0 0 30px #00e5ff22;}
 .overlay .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px;margin:16px 0 26px;font-size:11px;color:#00e5ff77;text-align:left;border:1px solid #00e5ff28;padding:12px 16px;}
-#victoryOverlay h1{color:#00ff88;text-shadow:0 0 30px #00ff88aa,0 0 60px #00ff8844;}
-#victoryOverlay .overlay-btn{border-color:#00ff88;color:#00ff88;}
+#victoryOverlay h1{color:#11aa55;text-shadow:0 2px 16px rgba(20,180,90,0.35);}
+#victoryOverlay .overlay-btn{border-color:#11aa55;color:#0a9944;}
 #victoryOverlay .overlay-btn:hover{background:#00ff8810;}
-#gameoverOverlay h1{color:#ff2244;text-shadow:0 0 30px #ff2244aa,0 0 60px #ff224444;}
-#gameoverOverlay .overlay-btn{border-color:#ff2244;color:#ff2244;}
-#gameoverOverlay .overlay-btn:hover{background:#ff224410;}
-.score-display{font-size:20px;color:#fff;margin:8px 0 18px;letter-spacing:3px;}
-#tutOverlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(10,18,32,0.97),rgba(14,24,40,0.96));z-index:20;display:none;flex-direction:column;align-items:stretch;overflow:hidden;}
+#gameoverOverlay h1{color:#dd3344;text-shadow:0 2px 16px rgba(220,50,70,0.35);}
+#gameoverOverlay .overlay-btn{border-color:#dd3344;color:#cc2233;}
+#gameoverOverlay .overlay-btn:hover{background:linear-gradient(135deg,#ee4455,#dd3344);color:#fff;box-shadow:0 4px 20px rgba(220,50,70,0.35);}
+.score-display{font-size:20px;color:#0a3a55;margin:8px 0 18px;letter-spacing:3px;}
+#tutOverlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(238,245,250,0.98),rgba(224,236,246,0.97));z-index:20;display:none;flex-direction:column;align-items:stretch;overflow:hidden;}
 #tutHeader{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px;border-bottom:1px solid #00e5ff33;flex-shrink:0;background:linear-gradient(90deg,#00e5ff06,transparent);}
-#tutHeader h2{font-size:11px;letter-spacing:4px;color:#00e5ff66;}
-#tutClose{background:transparent;border:1px solid #00e5ff33;color:#00e5ff;padding:3px 12px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);transition:all 0.2s;}
+#tutHeader h2{font-size:11px;letter-spacing:4px;color:#3a6a85;}
+#tutClose{background:#ffffff;border:1px solid #88bbd5;color:#005580;padding:3px 12px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);transition:all 0.2s;}
 #tutClose:hover{background:#00e5ff10;border-color:#00e5ff88;}
-#tutNav{display:flex;align-items:center;gap:5px;padding:8px 18px;border-bottom:1px solid #00e5ff18;flex-shrink:0;flex-wrap:wrap;}
-.tut-dot{width:26px;height:26px;border-radius:50%;border:1px solid #00e5ff22;color:#00e5ff44;background:#102030;font-size:10px;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
+#tutNav{display:flex;align-items:center;gap:5px;padding:8px 18px;border-bottom:1px solid #cfe0ea;flex-shrink:0;flex-wrap:wrap;}
+.tut-dot{width:26px;height:26px;border-radius:50%;border:1px solid #99bbd2;color:#3a6a85;background:#ffffff;font-size:10px;font-family:'Share Tech Mono',monospace;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
 .tut-dot.active{background:#00e5ff28;border-color:#00e5ff;color:#00e5ff;box-shadow:0 0 8px #00e5ff33;}
 .tut-dot.done{background:#00ff4425;border-color:#00ff4455;color:#00ff44;}
-.tut-line{flex:1;height:1px;background:linear-gradient(90deg,#00e5ff10,transparent);min-width:6px;}
+.tut-line{flex:1;height:1px;background:linear-gradient(90deg,#aaccdd,transparent);min-width:6px;}
 #tutBody{flex:1;overflow-y:auto;padding:14px 18px;}
 #tutBody::-webkit-scrollbar{width:3px;}
 #tutBody::-webkit-scrollbar-thumb{background:#00e5ff33;border-radius:2px;}
-.tut-card{background:linear-gradient(135deg,#102030,#152535);border:1px solid #00e5ff28;padding:12px 14px;margin-bottom:8px;}
+.tut-card{background:linear-gradient(135deg,#ffffff,#f2f8fc);border:1px solid #bcd8e8;padding:12px 14px;margin-bottom:8px;}
 .tut-step-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
-.tut-step-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#00e5ff33,#00e5ff06);border:1px solid #00e5ff33;color:#00e5ff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.tut-step-title{font-size:13px;color:#00e5ff;margin:0 0 2px;letter-spacing:1px;}
-.tut-step-sub{font-size:10px;color:#00e5ff44;margin:0;}
-.tut-body{font-size:11px;color:#6688aa;line-height:1.8;margin:0 0 8px;}
-.tut-tip{background:linear-gradient(135deg,#0a2030,#0c2438);border:1px solid #00e5ff33;border-left:2px solid #00e5ff77;padding:5px 9px;font-size:10px;color:#00e5ff99;margin-top:5px;}
-.tut-warn{background:linear-gradient(135deg,#150a00,#1a0f00);border:1px solid #ff880018;border-left:2px solid #ff880088;padding:5px 9px;font-size:10px;color:#ff8844;margin-top:5px;}
+.tut-step-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#cceaf5,#e6f4fb);border:1px solid #99cce0;color:#0077aa;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.tut-step-title{font-size:13px;color:#006699;margin:0 0 2px;letter-spacing:1px;}
+.tut-step-sub{font-size:10px;color:#4a7a95;margin:0;}
+.tut-body{font-size:11px;color:#446677;line-height:1.8;margin:0 0 8px;}
+.tut-tip{background:linear-gradient(135deg,#e6f4fb,#daeef8);border:1px solid #acd8ec;border-left:2px solid #0099cc;padding:5px 9px;font-size:10px;color:#0077aa;margin-top:5px;}
+.tut-warn{background:linear-gradient(135deg,#fff4e6,#ffedda);border:1px solid #ffcc99;border-left:2px solid #ee8800;padding:5px 9px;font-size:10px;color:#cc6600;margin-top:5px;}
 .tut-grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0;}
 .tut-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:6px 0;}
-.tut-box{background:linear-gradient(135deg,#0c1825,#0e1e2e);border:1px solid #00e5ff1e;padding:7px 9px;}
+.tut-box{background:linear-gradient(135deg,#ffffff,#f0f6fa);border:1px solid #cfe2ec;padding:7px 9px;}
 .tut-box-title{font-size:11px;font-weight:bold;margin:0 0 4px;}
-.tut-box-sub{font-size:10px;color:#6688aa;margin:0;line-height:1.5;}
-.tut-bar-row{display:flex;align-items:center;gap:5px;margin:3px 0;font-size:10px;color:#6688aa;}
-.tut-bar-bg{flex:1;height:2px;background:#142a3a;}
+.tut-box-sub{font-size:10px;color:#446677;margin:0;line-height:1.5;}
+.tut-bar-row{display:flex;align-items:center;gap:5px;margin:3px 0;font-size:10px;color:#446677;}
+.tut-bar-bg{flex:1;height:2px;background:#cfe0ea;}
 .tut-bar{height:2px;}
-.tut-enemy-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #00e5ff18;}
+.tut-enemy-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #d5e5ee;}
 .tut-enemy-row:last-child{border-bottom:none;}
 .tut-badge{display:inline-block;padding:1px 6px;font-size:9px;}
 .tut-wave-table{width:100%;border-collapse:collapse;font-size:10px;margin:5px 0;}
-.tut-wave-table th{color:#00e5ff44;padding:3px 5px;border-bottom:1px solid #00e5ff28;text-align:left;}
-.tut-wave-table td{color:#6688aa;padding:4px 5px;border-bottom:1px solid #00e5ff18;}
+.tut-wave-table th{color:#5599bb;padding:3px 5px;border-bottom:1px solid #00e5ff28;text-align:left;}
+.tut-wave-table td{color:#446677;padding:4px 5px;border-bottom:1px solid #e0ecf3;}
 .tut-wave-table tr:last-child td{border-bottom:none;}
-#tutFooter{display:flex;gap:6px;padding:8px 18px;border-top:1px solid #00e5ff28;flex-shrink:0;background:linear-gradient(180deg,transparent,#00e5ff04);}
-.tut-nav-btn{background:linear-gradient(135deg,#102030,#152535);border:1px solid #00e5ff33;color:#00e5ff;padding:6px 16px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
-.tut-nav-btn:hover{border-color:#00e5ff88;}
-.tut-nav-btn.primary{background:linear-gradient(135deg,#021e00,#032e00);border-color:#00ff4455;color:#00ff88;margin-left:auto;}
-.tut-nav-btn.primary:hover{border-color:#00ff44aa;}
-#countdownOverlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;z-index:5;display:none;}
-#countdownNum{font-size:96px;color:#ffe000;text-shadow:0 0 40px #ffe000bb,0 0 80px #ffe00055;line-height:1;animation:cdpop 1s ease-out forwards;}
-@keyframes cdpop{0%{transform:scale(1.5);opacity:0;}20%{transform:scale(1.0);opacity:1;}80%{transform:scale(1.0);opacity:1;}100%{transform:scale(0.6);opacity:0;}}
-#countdownLabel{font-size:11px;letter-spacing:4px;color:#ffe00066;margin-top:4px;}
-#skipBtn{margin-top:12px;background:rgba(255,224,0,0.1);border:1px solid #ffe00066;color:#ffe000aa;padding:5px 20px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;pointer-events:all;transition:all 0.2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-#skipBtn:hover{background:rgba(255,224,0,0.2);border-color:#ffe000cc;color:#ffe000;}
+#tutFooter{display:flex;gap:6px;padding:8px 18px;border-top:1px solid #cfe0ea;flex-shrink:0;background:linear-gradient(180deg,transparent,#00e5ff04);}
+.tut-nav-btn{background:linear-gradient(135deg,#ffffff,#eef5fa);border:1px solid #88bbd5;color:#005580;padding:6px 16px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;transition:all 0.2s;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
+.tut-nav-btn:hover{border-color:#0099cc;box-shadow:0 2px 8px rgba(0,150,210,0.2);}
+.tut-nav-btn.primary{background:linear-gradient(135deg,#22cc66,#11aa55);border-color:#0a9944;color:#fff;margin-left:auto;}
+.tut-nav-btn.primary:hover{border-color:#0a9944;box-shadow:0 2px 10px rgba(20,180,80,0.3);}
+/* Countdown — 簡潔單欄佈局 */
+#countdownOverlay{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;z-index:5;
+  background:rgba(230,240,248,0.72);
+}
+#countdownNum{
+  font-size:72px;color:#0088cc;line-height:1;
+  text-shadow:0 2px 16px rgba(0,140,200,0.3);
+  animation:cdpop 1s ease-out forwards;
+}
+@keyframes cdpop{
+  0%{transform:scale(1.4);opacity:0;}
+  25%{transform:scale(1.0);opacity:1;}
+  75%{transform:scale(1.0);opacity:1;}
+  100%{transform:scale(0.8);opacity:0;}
+}
+#countdownLabel{
+  font-size:11px;letter-spacing:3px;color:#5599bb;
+  margin-top:2px;margin-bottom:18px;
+}
+/* 事件：單行文字，無卡片框 */
+#cdEventName{
+  font-size:14px;letter-spacing:2px;
+  color:#0088cc;margin-bottom:3px;
+  transition:color 0.3s,text-shadow 0.3s;
+  text-shadow:0 0 10px currentColor;
+}
+#cdEventDesc{
+  font-size:10px;letter-spacing:1px;color:#5599bb;
+  transition:color 0.3s;
+}
+#skipBtn{
+  margin-top:20px;
+  background:#ffffff;
+  border:1px solid #99c4dd;color:#0088cc;
+  padding:5px 18px;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  pointer-events:all;transition:all 0.2s;
+}
+#skipBtn:hover{border-color:#0088cc;color:#0066aa;background:#f0f8fc;}
+
+#levelGrid{display:flex;gap:14px;margin:8px 0 4px;flex-wrap:wrap;justify-content:center;}
+.level-card{width:180px;background:linear-gradient(135deg,#ffffff,#eef6fb);border:1px solid #88bbd5;border-radius:8px;padding:14px;cursor:pointer;transition:all 0.2s;text-align:center;}
+.level-card:hover{border-color:#0088cc;box-shadow:0 6px 20px rgba(0,140,200,0.3);transform:translateY(-3px);}
+.level-card .lc-name{font-size:16px;color:#005580;letter-spacing:2px;margin-bottom:4px;}
+.level-card .lc-desc{font-size:10px;color:#4a7a95;margin-bottom:10px;min-height:24px;}
+.level-card canvas{display:block;margin:0 auto;border:1px solid #cfe0ea;border-radius:4px;background:#e3ecf4;}
 </style>
 </head>
 <body>
@@ -147,21 +196,22 @@ body{background:#0c1628;display:flex;flex-direction:column;align-items:center;ju
   <div class="overlay" id="menuOverlay">
     <h1>MACHINE<br>RIFT</h1>
     <div class="subtitle">戰術防禦系統 v1.0</div>
-    <div id="menuHS" style="font-size:12px;color:#ffe00088;letter-spacing:2px;margin-bottom:8px;"></div>
-    <div class="legend">
-      <div>⚙ 機槍塔 — 高速單體</div><div>🔥 火焰塔 — 範圍爆發</div>
-      <div>❄ 冰霜塔 — 減速控制</div><div>▲ 點塔可升級至 Lv3</div>
-      <div>普通兵 — 血量 100</div><div>快速兵 — 血量 70 速×1.6</div>
-      <div>坦克兵 — 血量 250 速×0.6</div><div>基地血量 10，撐過三波即勝</div>
-    </div>
-    <button class="overlay-btn" onclick="startGame()">[ 開始任務 ]</button>
+    <div id="menuHS" style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:28px;"></div>
+    <button class="overlay-btn" onclick="openLevelSelect()">[ 開始任務 ]</button>
     <button class="overlay-btn" onclick="openTutorial()" style="border-color:#00e5ff55;color:#00e5ff55;font-size:11px;padding:7px 26px;margin-top:2px">[ 戰術簡報 ]</button>
+  </div>
+  <!-- 關卡選擇 -->
+  <div class="overlay" id="levelOverlay" style="display:none">
+    <h1 style="font-size:38px;letter-spacing:6px;">選擇關卡</h1>
+    <div class="subtitle">SELECT BATTLEFIELD</div>
+    <div id="levelGrid"></div>
+    <button class="overlay-btn" onclick="backToMenu()" style="border-color:#3a6a85;color:#3a6a85;font-size:11px;padding:7px 26px;margin-top:18px">[ 返回 ]</button>
   </div>
   <div class="overlay" id="gameoverOverlay" style="display:none">
     <h1>系統<br>崩潰</h1>
     <div class="subtitle">基地防禦歸零</div>
     <div class="score-display" id="gameoverScore"></div>
-    <div id="gameoverHS" style="font-size:12px;color:#ffe00088;letter-spacing:2px;margin-bottom:6px;"></div>
+    <div id="gameoverHS" style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:6px;"></div>
     <button class="overlay-btn" onclick="restartGame()">[ 重新挑戰 ]</button>
     <button class="overlay-btn" onclick="goMainMenu()" style="border-color:#00e5ff55;color:#00e5ff55;font-size:11px;padding:7px 26px">[ 主選單 ]</button>
   </div>
@@ -169,13 +219,19 @@ body{background:#0c1628;display:flex;flex-direction:column;align-items:center;ju
     <h1>任務<br>完成</h1>
     <div class="subtitle">所有敵軍已消滅</div>
     <div class="score-display" id="victoryScore"></div>
-    <div id="victoryHS" style="font-size:12px;color:#ffe00088;letter-spacing:2px;margin-bottom:6px;"></div>
+    <div id="victoryHS" style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:6px;"></div>
     <button class="overlay-btn" onclick="restartGame()">[ 再戰一次 ]</button>
     <button class="overlay-btn" onclick="goMainMenu()" style="border-color:#00ff8855;color:#00ff8855;font-size:11px;padding:7px 26px">[ 主選單 ]</button>
   </div>
+  <div id="waveEventBanner" style="display:none">
+    <div class="ev-title" id="evTitle">—</div>
+    <div class="ev-desc" id="evDesc"></div>
+  </div>
   <div id="countdownOverlay">
-    <div id="countdownNum">5</div>
+    <div id="countdownNum">3</div>
     <div id="countdownLabel">敵軍來襲</div>
+    <div id="cdEventName">—</div>
+    <div id="cdEventDesc">—</div>
     <button id="skipBtn" onclick="skipCountdown()">▶▶ 立即開始</button>
   </div>
   <!-- Pause Overlay -->
@@ -213,15 +269,47 @@ body{background:#0c1628;display:flex;flex-direction:column;align-items:center;ju
 // CONSTANTS
 // ═══════════════════════════════════════════════════════════════
 const CELL=56,COLS=15,ROWS=10,W=840,H=560;
-const MAP_DEF=[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,1,1,1,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
-const PATH_PTS=[{c:0,r:1},{c:10,r:1},{c:10,r:4},{c:5,r:4},{c:5,r:7},{c:14,r:7}];
-const WAVES=[
-  [{type:'Normal',count:12}],
-  [{type:'Normal',count:10},{type:'Fast',count:10}],
-  [{type:'Normal',count:8},{type:'Fast',count:10},{type:'Tank',count:6},{type:'Boss',count:1}],
+// ── 多關卡：每張地圖含 名稱/格子/路徑點/波次 ──
+const LEVELS=[
+  {
+    name:'回廊', desc:'新手 · 標準敵人 · 起始 300G',
+    gold:300, baseHP:15, hpMul:1.0, spdMul:1.0,
+    map:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,1,1,1,1,1,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+    path:[{c:0,r:1},{c:10,r:1},{c:10,r:4},{c:5,r:4},{c:5,r:7},{c:14,r:7}],
+    waves:[
+      [{type:'Normal',count:10}],
+      [{type:'Normal',count:8},{type:'Fast',count:8}],
+      [{type:'Normal',count:6},{type:'Fast',count:8},{type:'Tank',count:5},{type:'Boss',count:1}],
+    ],
+  },
+  {
+    name:'蛇行', desc:'中等 · 敵人血量+20% · 起始 280G',
+    gold:280, baseHP:12, hpMul:1.2, spdMul:1.0,
+    map:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,1,1,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,1,1,1,1,1,1,1,1,1,1,1,0,0],[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,1,1,1,1,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+    path:[{c:0,r:1},{c:12,r:1},{c:12,r:4},{c:2,r:4},{c:2,r:7},{c:14,r:7}],
+    waves:[
+      [{type:'Normal',count:12},{type:'Fast',count:4}],
+      [{type:'Normal',count:10},{type:'Fast',count:12},{type:'Tank',count:4}],
+      [{type:'Normal',count:8},{type:'Fast',count:12},{type:'Tank',count:8},{type:'Boss',count:1}],
+    ],
+  },
+  {
+    name:'階梯', desc:'困難 · 敵人血量+40% 速度+10% · 起始 260G',
+    gold:260, baseHP:10, hpMul:1.4, spdMul:1.1,
+    map:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[3,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[2,1,1,1,1,1,1,1,1,1,1,1,1,1,0]],
+    path:[{c:0,r:1},{c:13,r:1},{c:13,r:3},{c:2,r:3},{c:2,r:6},{c:13,r:6},{c:13,r:9},{c:0,r:9}],
+    waves:[
+      [{type:'Normal',count:14},{type:'Fast',count:8}],
+      [{type:'Normal',count:12},{type:'Fast',count:14},{type:'Tank',count:6}],
+      [{type:'Normal',count:10},{type:'Fast',count:14},{type:'Tank',count:10},{type:'Boss',count:2}],
+    ],
+  },
 ];
+let currentLevel=0;
+// 動態指向當前關卡（startGame 時設定）
+let MAP_DEF=LEVELS[0].map, PATH_PTS=LEVELS[0].path, WAVES=LEVELS[0].waves;
 const TCFG={
-  MG:{name:'機槍塔',cost:100,col:'#00e5ff',acc:'#88ffff',stats:[
+  MG:{name:'機槍塔',cost:100,col:'#0099dd',acc:'#33ccff',stats:[
     {dmg:15,range:2.5,rate:20,aoe:0},
     {dmg:24,range:2.8,rate:15,aoe:0},
     {dmg:36,range:3.1,rate:11,aoe:0}]},
@@ -229,20 +317,20 @@ const TCFG={
     {dmg:38,range:2.1,rate:58,aoe:1.3},
     {dmg:60,range:2.4,rate:48,aoe:1.6},
     {dmg:90, range:2.7,rate:38,aoe:1.9}]},
-  Ice:{name:'冰霜塔',cost:100,col:'#44aaff',acc:'#aaddff',stats:[
+  Ice:{name:'冰霜塔',cost:100,col:'#3399ee',acc:'#88ccff',stats:[
     {dmg:16,range:2.5,rate:32,aoe:0,slow:0.45},
     {dmg:28,range:2.8,rate:25,aoe:0,slow:0.35},
     {dmg:42,range:3.1,rate:19,aoe:0,slow:0.25}]},
 };
 const ECFG={
   Normal:{hp:100,speed:1.0,reward:20,color:'#ff3366',size:10},
-  Fast:  {hp:80, speed:1.7,reward:30,color:'#ffe000',size:8},
+  Fast:  {hp:80, speed:1.7,reward:30,color:'#ee9900',size:8},
   Tank:  {hp:300,speed:0.55,reward:60,color:'#cc44ff',size:14},
   Boss:  {hp:1500,speed:0.4,reward:200,color:'#ff4400',size:22},
 };
 
 function buildPath(){const pts=[];for(let i=0;i<PATH_PTS.length-1;i++){const a=PATH_PTS[i],b=PATH_PTS[i+1];const ax=a.c*CELL+CELL/2,ay=a.r*CELL+CELL/2,bx=b.c*CELL+CELL/2,by=b.r*CELL+CELL/2;const d=Math.hypot(bx-ax,by-ay),steps=Math.ceil(d/2);for(let s=0;s<steps;s++)pts.push({x:ax+(bx-ax)*s/steps,y:ay+(by-ay)*s/steps});}const l=PATH_PTS[PATH_PTS.length-1];pts.push({x:l.c*CELL+CELL/2,y:l.r*CELL+CELL/2});return pts;}
-const PATH=buildPath();
+let PATH=buildPath();
 
 // Canvas high-DPI
 const canvas=document.getElementById('gameCanvas');
@@ -253,7 +341,7 @@ const ctx=canvas.getContext('2d');
 ctx.scale(DPR,DPR);
 
 let game=null,loopId=null;
-function newGame(){return{gold:200,baseHP:10,score:0,waveIndex:0,waveActive:false,gameOver:false,victory:false,paused:false,towers:[],enemies:[],bullets:[],particles:[],floatTexts:[],selType:null,selTower:null,spawnQ:[],spawnTimer:0,spawnInterval:58,totalEnemies:0,animFrame:0,map:MAP_DEF.map(r=>[...r]),countdown:0,inCountdown:false,scanY:0,radarAngle:0,screenShake:0,shakeX:0,shakeY:0};}
+function newGame(){const lv=LEVELS[currentLevel];return{gold:lv.gold||200,baseHP:lv.baseHP||10,score:0,waveIndex:0,waveActive:false,gameOver:false,victory:false,paused:false,towers:[],enemies:[],bullets:[],particles:[],floatTexts:[],selType:null,selTower:null,spawnQ:[],spawnTimer:0,spawnInterval:58,totalEnemies:0,animFrame:0,map:MAP_DEF.map(r=>[...r]),countdown:0,inCountdown:false,scanY:0,radarAngle:0,screenShake:0,shakeX:0,shakeY:0};}
 
 // ═══════════════════════════════════════════════════════════════
 // WEB AUDIO ENGINE
@@ -393,22 +481,82 @@ function drawFloats(ctx,ft){
 }
 
 // ═══════════════════════════════════════════════════════════════
+// DAMAGE WITH RESISTANCE
+// ═══════════════════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════════════════
+// WAVE EVENTS
+// ═══════════════════════════════════════════════════════════════
+const WAVE_EVENTS=[
+  {id:'speed',   name:'⚡ 急速突擊',  desc:'敵人移動速度 +40%',    color:'#ff4466', apply:o=>{o.spdMul=1.4;}},
+  {id:'armor',   name:'🛡 裝甲強化',  desc:'全敵血量 +60%',         color:'#cc44ff', apply:o=>{o.hpMul=1.6;}},
+  {id:'swarm',   name:'🌊 群狼戰術',  desc:'出兵數量 +60%',          color:'#ffaa00', apply:o=>{o.countMul=1.6;}},
+  {id:'jamming', name:'📡 電磁干擾',  desc:'防禦塔攻速降低 30%',    color:'#00aaff', apply:o=>{o.towerRateMul=1.3;}},
+  {id:'regen',   name:'💉 奈米修復',  desc:'敵人每秒回復少量血量', color:'#00ff88', apply:o=>{o.regen=8;}},
+];
+let currentWaveEvent=null,towerRateMulActive=1;
+
+function pickWaveEvent(){
+  const ev=WAVE_EVENTS[Math.floor(Math.random()*WAVE_EVENTS.length)];
+  currentWaveEvent=ev;
+  const name=document.getElementById('cdEventName');
+  const desc=document.getElementById('cdEventDesc');
+  name.textContent=ev.name;
+  desc.textContent=ev.desc;
+  name.style.color=ev.color;
+  desc.style.color=ev.color+'88';
+}
+
+function buildSpawnQueue(waveIdx){
+  const wd=WAVES[waveIdx],opts={};
+  if(currentWaveEvent)currentWaveEvent.apply(opts);
+  // 疊加關卡固定難度倍率
+  const lv=LEVELS[currentLevel];
+  const lvHp=lv.hpMul||1, lvSpd=lv.spdMul||1;
+  const q=[];
+  wd.forEach(({type,count})=>{
+    let n=count;
+    if(opts.countMul&&type!=='Boss')n=Math.round(n*opts.countMul);
+    for(let i=0;i<n;i++){
+      const eo={};
+      // 關卡倍率 × 波次事件倍率
+      const hp=(opts.hpMul||1)*lvHp;
+      const spd=(opts.spdMul||1)*lvSpd;
+      if(hp!==1)  eo.hpMul=hp;
+      if(spd!==1) eo.spdMul=spd;
+      if(opts.regen)  eo.regen=opts.regen;
+      q.push({type,opts:eo});
+    }
+  });
+  for(let i=q.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[q[i],q[j]]=[q[j],q[i]];}
+  towerRateMulActive=opts.towerRateMul||1;
+  return q;
+}
+
+// ═══════════════════════════════════════════════════════════════
 // ENEMY CLASS
 // ═══════════════════════════════════════════════════════════════
 class Enemy{
-  constructor(type){
+  constructor(type,opts={}){
     const c=ECFG[type];
-    this.type=type;this.hp=c.hp;this.maxHp=c.hp;
+    this.type=type;
     this.baseSpeed=c.speed;this.speed=c.speed;
     this.reward=c.reward;this.color=c.color;this.size=c.size;
     this.pathIdx=0;this.x=PATH[0].x;this.y=PATH[0].y;
     this.dead=false;this.reached=false;this.slowTimer=0;
-    // Death animation
     this.dying=false;this.dyingTimer=0;this.dyingMax=22;
     this.dyingPieces=[];
+    this.hp=c.hp;this.maxHp=c.hp;
+    // 波次事件 buff
+    if(opts.hpMul) {this.hp=Math.round(this.hp*opts.hpMul);this.maxHp=this.hp;}
+    if(opts.spdMul){this.baseSpeed*=opts.spdMul;this.speed=this.baseSpeed;}
+    this.regenPerTick=opts.regen||0;
+    this.regenAccum=0;
   }
   update(){
     if(this.dying){this.dyingTimer++;this.dyingPieces.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.2;p.rot+=p.rotV;p.a*=0.9;});return;}
+    if(this.regenPerTick>0&&this.hp<this.maxHp){this.regenAccum++;if(this.regenAccum>=60){this.regenAccum=0;this.hp=Math.min(this.maxHp,this.hp+this.regenPerTick);}}
     if(this.slowTimer>0)this.slowTimer--;else this.speed=this.baseSpeed;
     let rem=this.speed*2;
     while(rem>0&&this.pathIdx<PATH.length-1){
@@ -449,43 +597,82 @@ class Enemy{
       return;
     }
     const x=this.x,y=this.y,r=this.size;
-    ctx.save();ctx.shadowColor=this.color;ctx.shadowBlur=12;
-    ctx.strokeStyle=this.color+'77';ctx.lineWidth=0.8;ctx.beginPath();ctx.arc(x,y,r+5,0,Math.PI*2);ctx.stroke();
-    ctx.shadowBlur=8;ctx.fillStyle=this.color+'1a';
+    ctx.save();ctx.shadowColor=this.color;ctx.shadowBlur=8;
+    const _t=game?game.animFrame:0, col=this.color;
     if(this.type==='Boss'){
-      // Boss: 八角形 + 發光核心 + 旋轉紋路
-      const bpulse=(Math.sin(Date.now()*0.005)+1)*0.5;
-      ctx.shadowBlur=20+bpulse*15;
-      // 外圍八角
+      // Boss: 雙層反向旋轉環 + 脈動核心
+      const pulse=(Math.sin(_t*0.05)+1)*0.5;
+      ctx.save();ctx.translate(x,y);ctx.shadowBlur=18+pulse*12;
+      // 外環 (旋轉八角，尖角內凹交錯)
+      ctx.rotate(_t*0.01);
+      ctx.fillStyle=col+'1a';ctx.strokeStyle=col;ctx.lineWidth=2;
       ctx.beginPath();
-      for(let bi=0;bi<8;bi++){const ba=bi*Math.PI/4-Math.PI/8;const bx2=x+r*Math.cos(ba),by2=y+r*Math.sin(ba);bi===0?ctx.moveTo(bx2,by2):ctx.lineTo(bx2,by2);}
-      ctx.closePath();ctx.fill();
-      ctx.strokeStyle=this.color;ctx.lineWidth=2;ctx.stroke();
-      // 內圈
-      ctx.shadowBlur=8;
-      ctx.strokeStyle=this.color+'88';ctx.lineWidth=1;
-      ctx.beginPath();ctx.arc(x,y,r*0.65,0,Math.PI*2);ctx.stroke();
-      // 核心
-      ctx.fillStyle='#ff8800';ctx.shadowColor='#ff8800';ctx.shadowBlur=12;
-      ctx.beginPath();ctx.arc(x,y,r*0.35,0,Math.PI*2);ctx.fill();
-      // 名稱標籤
-      ctx.shadowBlur=0;ctx.fillStyle='#ffffff';ctx.font='bold 9px "Share Tech Mono",monospace';
-      ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('BOSS',x,y);
+      for(let i=0;i<8;i++){const a=i*Math.PI/4;const rr=i%2?r:r*0.82;i===0?ctx.moveTo(rr,0):ctx.lineTo(rr*Math.cos(a),rr*Math.sin(a));}
+      ctx.closePath();ctx.fill();ctx.stroke();
+      // 中環 (反向旋轉六角)
+      ctx.rotate(-_t*0.03);
+      ctx.strokeStyle=col+'aa';ctx.lineWidth=1.5;ctx.shadowBlur=6;
+      ctx.beginPath();
+      for(let i=0;i<6;i++){const a=i*Math.PI/3;i===0?ctx.moveTo(r*0.6,0):ctx.lineTo(r*0.6*Math.cos(a),r*0.6*Math.sin(a));}
+      ctx.closePath();ctx.stroke();
+      // 脈動核心
+      ctx.rotate(_t*0.02);
+      ctx.fillStyle='#ff8800';ctx.shadowColor='#ffaa00';ctx.shadowBlur=14;
+      ctx.beginPath();ctx.arc(0,0,r*(0.28+pulse*0.08),0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#ffffff';ctx.shadowBlur=4;
+      ctx.beginPath();ctx.arc(0,0,r*0.12,0,Math.PI*2);ctx.fill();
+      ctx.restore();
     } else if(this.type==='Tank'){
-      ctx.fillRect(x-r,y-r,r*2,r*2);ctx.strokeStyle=this.color;ctx.lineWidth=1.5;ctx.strokeRect(x-r,y-r,r*2,r*2);
-      ctx.strokeStyle=this.color+'55';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(x-r,y);ctx.lineTo(x+r,y);ctx.moveTo(x,y-r);ctx.lineTo(x,y+r);ctx.stroke();
+      // 重裝方塊 + 履帶 + 鉚釘
+      ctx.save();ctx.translate(x,y);
+      ctx.fillStyle=col+'2a';ctx.strokeStyle=col;ctx.lineWidth=2;
+      ctx.beginPath();ctx.roundRect(-r,-r,r*2,r*2,4);ctx.fill();ctx.stroke();
+      // 履帶 (上下)
+      ctx.fillStyle=col+'66';ctx.fillRect(-r,-r-3,r*2,3);ctx.fillRect(-r,r,r*2,3);
+      ctx.fillStyle=col;
+      for(let i=-2;i<=2;i++){ctx.fillRect(i*r*0.45-1,-r-3,2,3);ctx.fillRect(i*r*0.45-1,r,2,3);}
+      // 中央砲塔
+      ctx.fillStyle=col;ctx.shadowBlur=6;
+      ctx.beginPath();ctx.arc(0,0,r*0.4,0,Math.PI*2);ctx.fill();
+      // 四角鉚釘
+      ctx.fillStyle=col+'aa';
+      [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(d=>{ctx.beginPath();ctx.arc(d[0]*r*0.6,d[1]*r*0.6,1.5,0,Math.PI*2);ctx.fill();});
+      ctx.restore();
     } else if(this.type==='Fast'){
-      ctx.beginPath();ctx.moveTo(x,y-r);ctx.lineTo(x+r,y+r);ctx.lineTo(x-r,y+r);ctx.closePath();ctx.fill();
-      ctx.strokeStyle=this.color;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y-r);ctx.lineTo(x+r,y+r);ctx.lineTo(x-r,y+r);ctx.closePath();ctx.stroke();
+      // 流線梭形 + 駕駛艙 + 尾焰 (依移動方向旋轉)
+      ctx.save();ctx.translate(x,y);
+      // 計算朝向 (用路徑下一點)
+      let ang=0;
+      if(this.pathIdx<PATH.length-1){const nx=PATH[this.pathIdx+1];ang=Math.atan2(nx.y-y,nx.x-x);}
+      ctx.rotate(ang);
+      ctx.fillStyle=col+'33';ctx.strokeStyle=col;ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(-r*0.6,r*0.8);ctx.lineTo(-r*0.3,0);ctx.lineTo(-r*0.6,-r*0.8);ctx.closePath();ctx.fill();ctx.stroke();
+      // 駕駛艙
+      ctx.fillStyle='#ffffff';ctx.shadowBlur=4;ctx.beginPath();ctx.arc(r*0.3,0,2,0,Math.PI*2);ctx.fill();
+      // 尾焰
+      const flick=0.6+Math.sin(_t*0.4)*0.4;
+      ctx.fillStyle='#ffdd44cc';ctx.shadowColor='#ffaa00';ctx.shadowBlur=8;
+      ctx.beginPath();ctx.moveTo(-r*0.3,r*0.35);ctx.lineTo(-r*(0.9+flick),0);ctx.lineTo(-r*0.3,-r*0.35);ctx.closePath();ctx.fill();
+      ctx.restore();
     } else {
-      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-      ctx.strokeStyle=this.color;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();
-      ctx.fillStyle=this.color;ctx.shadowBlur=4;ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();
+      // 普通兵: 六邊外殼 + 旋轉內核 + 環繞點
+      ctx.save();ctx.translate(x,y);
+      ctx.rotate(_t*0.02);
+      ctx.fillStyle=col+'22';ctx.strokeStyle=col;ctx.lineWidth=1.5;
+      ctx.beginPath();
+      for(let i=0;i<6;i++){const a=i*Math.PI/3;i===0?ctx.moveTo(r*Math.cos(a),r*Math.sin(a)):ctx.lineTo(r*Math.cos(a),r*Math.sin(a));}
+      ctx.closePath();ctx.fill();ctx.stroke();
+      ctx.rotate(-_t*0.04);
+      ctx.fillStyle=col;ctx.shadowBlur=6;
+      ctx.beginPath();ctx.arc(0,0,r*0.35,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=col+'cc';
+      for(let i=0;i<3;i++){const a=i*Math.PI*2/3+_t*0.02;ctx.beginPath();ctx.arc(r*0.7*Math.cos(a),r*0.7*Math.sin(a),1.6,0,Math.PI*2);ctx.fill();}
+      ctx.restore();
     }
     if(this.slowTimer>0){ctx.strokeStyle='#44aaff55';ctx.lineWidth=1;ctx.shadowBlur=0;ctx.beginPath();ctx.arc(x,y,r+8,0,Math.PI*2);ctx.stroke();}
     ctx.restore();
-    // HP bar
-    const bw=r*3,bh=3;ctx.fillStyle='#1a2a3acc';ctx.fillRect(x-bw/2,y-r-10,bw,bh);
+    const bw=r*3,bh=3;
+    ctx.fillStyle='rgba(180,200,215,0.85)';ctx.fillRect(x-bw/2,y-r-10,bw,bh);
     const hr=this.hp/this.maxHp,hc=hr>0.5?'#00ff66':hr>0.25?'#ffe000':'#ff2244';
     ctx.fillStyle=hc;ctx.fillRect(x-bw/2,y-r-10,bw*hr,bh);
     ctx.strokeStyle=hc+'33';ctx.lineWidth=0.5;ctx.strokeRect(x-bw/2,y-r-10,bw,bh);
@@ -524,8 +711,8 @@ class Bullet{
       } else {
         const wasDead=this.target.hp<=0;
         this.target.hp-=this.dmg;
-        spawnFloat(floatTexts,this.target.x+(Math.random()*14-7),this.target.y-this.target.size-4,'-'+this.dmg,this.type==='Ice'?'#88ddff':'#ff4466',11);
         if(this.slow)this.target.applyIce(this.slow,90);
+        spawnFloat(floatTexts,this.target.x+(Math.random()*14-7),this.target.y-this.target.size-4,'-'+this.dmg,this.type==='Ice'?'#88ddff':'#ff4466',11);
         if(this.target.hp<=0&&!this.target.dying&&!wasDead)this.target.startDeath();
         spawnSpark(particles,this.x,this.y,this.color);
         sfxHit();
@@ -608,7 +795,7 @@ class Tower{
       if(this.fireCooldown<=0){
         const s=this.stats;
         bullets.push(new Bullet(this.x,this.y,this.target,s.dmg,this.type,s.aoe||0,s.slow||0));
-        this.fireCooldown=s.rate;this.shootFlash=8;
+        this.fireCooldown=Math.round(s.rate*(typeof towerRateMulActive!=='undefined'?towerRateMulActive:1));this.shootFlash=8;
         sfxShoot(this.type);
       }
     }
@@ -623,7 +810,7 @@ class Tower{
     // Build particles burst when scale just became 1
     ctx.shadowColor=col;ctx.shadowBlur=sel?20:this.shootFlash>0?14:6;
     // Hex base
-    ctx.fillStyle='#102030';ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.beginPath();
+    ctx.fillStyle='#ffffff';ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.beginPath();
     for(let i=0;i<6;i++){const a=Math.PI/6+i*Math.PI/3;i===0?ctx.moveTo(x+18*Math.cos(a),y+18*Math.sin(a)):ctx.lineTo(x+18*Math.cos(a),y+18*Math.sin(a));}
     ctx.closePath();ctx.fill();ctx.stroke();
     ctx.strokeStyle=col+'33';ctx.lineWidth=0.5;ctx.beginPath();
@@ -632,19 +819,25 @@ class Tower{
     // Turret
     ctx.translate(x,y);ctx.rotate(this.angle);
     if(this.type==='MG'){
-      ctx.fillStyle=col+'cc';ctx.fillRect(-5,-3.5,10,7);
-      ctx.fillStyle=acc;ctx.fillRect(3,-2,12,4);
-      ctx.fillStyle=col+'44';ctx.fillRect(-4,-5.5,4,2.5);ctx.fillRect(-4,3,4,2.5);
-      if(this.shootFlash>0){ctx.fillStyle='#ffffff88';ctx.shadowBlur=16;ctx.beginPath();ctx.arc(15,0,3,0,Math.PI*2);ctx.fill();}
+      // 雙管機槍
+      ctx.fillStyle=col;ctx.beginPath();ctx.roundRect(-6,-5,11,10,2);ctx.fill();
+      ctx.fillStyle=acc;ctx.fillRect(4,-3.5,13,2.5);ctx.fillRect(4,1,13,2.5);
+      ctx.fillStyle=col+'88';ctx.beginPath();ctx.arc(0,0,3,0,Math.PI*2);ctx.fill();
+      if(this.shootFlash>0){ctx.fillStyle='#ffffffcc';ctx.shadowBlur=16;ctx.beginPath();ctx.arc(17,-2.3,2.2,0,Math.PI*2);ctx.arc(17,2.3,2.2,0,Math.PI*2);ctx.fill();}
     } else if(this.type==='Fire'){
-      ctx.fillStyle=col+'cc';ctx.beginPath();ctx.arc(0,0,8,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle=acc;ctx.fillRect(1,-3,13,6);
-      if(this.shootFlash>0){ctx.fillStyle='#ffaa44cc';ctx.shadowBlur=20;ctx.beginPath();ctx.arc(14,0,6,0,Math.PI*2);ctx.fill();}
+      // 火焰噴射器 (粗管 + 噴口環)
+      ctx.fillStyle=col;ctx.beginPath();ctx.arc(0,0,8,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=acc;ctx.beginPath();ctx.roundRect(2,-4,14,8,2);ctx.fill();
+      ctx.strokeStyle='#ff4400';ctx.lineWidth=2;ctx.beginPath();ctx.arc(16,0,3.5,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='#ffcc66';ctx.beginPath();ctx.arc(0,0,3.5,0,Math.PI*2);ctx.fill();
+      if(this.shootFlash>0){ctx.fillStyle='#ffaa44cc';ctx.shadowBlur=20;ctx.beginPath();ctx.arc(17,0,5,0,Math.PI*2);ctx.fill();}
     } else {
-      ctx.fillStyle=col+'cc';ctx.fillRect(-7,-7,14,14);
-      ctx.fillStyle=acc;ctx.fillRect(5,-2.5,11,5);
-      ctx.fillStyle='#ffffff1a';ctx.fillRect(-3,-3,6,6);
-      if(this.shootFlash>0){ctx.strokeStyle='#88ddffcc';ctx.lineWidth=1.5;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(0,0,10,0,Math.PI*2);ctx.stroke();}
+      // 冰霜發射器 (方塊 + 晶體砲口)
+      ctx.fillStyle=col;ctx.beginPath();ctx.roundRect(-8,-8,16,16,3);ctx.fill();
+      ctx.fillStyle=acc;ctx.fillRect(5,-3,11,6);
+      ctx.fillStyle='#ffffff';ctx.beginPath();ctx.moveTo(17,0);ctx.lineTo(14,-3);ctx.lineTo(11,0);ctx.lineTo(14,3);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#cceeff';ctx.beginPath();ctx.arc(0,0,4,0,Math.PI*2);ctx.fill();
+      if(this.shootFlash>0){ctx.strokeStyle='#88ddffcc';ctx.lineWidth=1.5;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(0,0,11,0,Math.PI*2);ctx.stroke();}
     }
     ctx.restore();
     // Level pips
@@ -709,14 +902,14 @@ function drawParticles(ctx,p){
 // ═══════════════════════════════════════════════════════════════
 function drawMap(ctx,map,g){
   const t=g.animFrame;
-  ctx.fillStyle='#0a1220';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#e3ecf4';ctx.fillRect(0,0,W,H);
   // Radar
-  ctx.save();ctx.globalAlpha=0.06;
+  ctx.save();ctx.globalAlpha=0.08;
   const rg=ctx.createConicGradient(g.radarAngle,W/2,H/2);
-  rg.addColorStop(0,'#00e5ff');rg.addColorStop(0.1,'#00e5ff');rg.addColorStop(0.15,'transparent');rg.addColorStop(1,'transparent');
+  rg.addColorStop(0,'#0099dd');rg.addColorStop(0.1,'#0099dd');rg.addColorStop(0.15,'transparent');rg.addColorStop(1,'transparent');
   ctx.fillStyle=rg;ctx.beginPath();ctx.arc(W/2,H/2,Math.max(W,H),0,Math.PI*2);ctx.fill();ctx.restore();
   // Grid lines
-  ctx.strokeStyle='#00e5ff18';ctx.lineWidth=0.5;
+  ctx.strokeStyle='rgba(0,140,200,0.12)';ctx.lineWidth=0.5;
   for(let c=0;c<=COLS;c++){ctx.beginPath();ctx.moveTo(c*CELL,0);ctx.lineTo(c*CELL,H);ctx.stroke();}
   for(let r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(W,r*CELL);ctx.stroke();}
   // Cells
@@ -724,46 +917,46 @@ function drawMap(ctx,map,g){
     for(let c=0;c<COLS;c++){
       const v=map[r][c],x=c*CELL,y=r*CELL;
       if(v===1){
-        ctx.fillStyle='#0a1e14';ctx.fillRect(x,y,CELL,CELL);
-        ctx.fillStyle='#00ff4425';ctx.fillRect(x,y,CELL,CELL);
-        ctx.strokeStyle='#00ff4432';ctx.lineWidth=0.5;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
-        ctx.strokeStyle='#00ff4466';ctx.lineWidth=0.8;ctx.setLineDash([4,4]);
+        ctx.fillStyle='#d2ecdd';ctx.fillRect(x,y,CELL,CELL);
+        ctx.fillStyle='#22cc6622';ctx.fillRect(x,y,CELL,CELL);
+        ctx.strokeStyle='#22cc6644';ctx.lineWidth=0.5;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
+        ctx.strokeStyle='#11aa5566';ctx.lineWidth=0.8;ctx.setLineDash([4,4]);
         ctx.beginPath();ctx.moveTo(x+CELL/2,y+4);ctx.lineTo(x+CELL/2,y+CELL-4);ctx.stroke();
         ctx.moveTo(x+4,y+CELL/2);ctx.lineTo(x+CELL-4,y+CELL/2);ctx.stroke();
         ctx.setLineDash([]);
       } else if(v===0||v===4){
-        ctx.fillStyle='#0c1825';ctx.fillRect(x,y,CELL,CELL);
+        ctx.fillStyle='#dde7f0';ctx.fillRect(x,y,CELL,CELL);
         const pulse=(Math.sin(t*0.02+c*0.3+r*0.5)+1)*0.5;
-        ctx.fillStyle=`rgba(0,229,255,${0.03+pulse*0.03})`;ctx.fillRect(x+CELL/2-1,y+CELL/2-1,2,2);
-        if(v===0){const cs=5;ctx.strokeStyle='#00e5ff18';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(x+cs,y);ctx.lineTo(x,y);ctx.lineTo(x,y+cs);ctx.moveTo(x+CELL-cs,y);ctx.lineTo(x+CELL,y);ctx.lineTo(x+CELL,y+cs);ctx.moveTo(x,y+CELL-cs);ctx.lineTo(x,y+CELL);ctx.lineTo(x+cs,y+CELL);ctx.moveTo(x+CELL,y+CELL-cs);ctx.lineTo(x+CELL,y+CELL);ctx.lineTo(x+CELL-cs,y+CELL);ctx.stroke();}
+        ctx.fillStyle=`rgba(0,140,200,${0.06+pulse*0.06})`;ctx.fillRect(x+CELL/2-1,y+CELL/2-1,2,2);
+        if(v===0){const cs=5;ctx.strokeStyle='rgba(0,140,200,0.15)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(x+cs,y);ctx.lineTo(x,y);ctx.lineTo(x,y+cs);ctx.moveTo(x+CELL-cs,y);ctx.lineTo(x+CELL,y);ctx.lineTo(x+CELL,y+cs);ctx.moveTo(x,y+CELL-cs);ctx.lineTo(x,y+CELL);ctx.lineTo(x+cs,y+CELL);ctx.moveTo(x+CELL,y+CELL-cs);ctx.lineTo(x+CELL,y+CELL);ctx.lineTo(x+CELL-cs,y+CELL);ctx.stroke();}
       } else if(v===2){
-        const bp=(Math.sin(t*0.05)+1)*0.5;ctx.fillStyle='#0a1a2e';ctx.fillRect(x,y,CELL,CELL);
-        ctx.save();ctx.shadowColor='#00e5ff';ctx.shadowBlur=10+bp*12;ctx.strokeStyle=`rgba(0,229,255,${0.5+bp*0.5})`;ctx.lineWidth=2;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
-        ctx.fillStyle=`rgba(0,229,255,${0.04+bp*0.08})`;ctx.fillRect(x+3,y+3,CELL-6,CELL-6);
-        ctx.fillStyle='#00e5ff';ctx.font='bold 9px "Share Tech Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('基地',x+CELL/2,y+CELL/2);ctx.restore();
+        const bp=(Math.sin(t*0.05)+1)*0.5;ctx.fillStyle='#c6e0f0';ctx.fillRect(x,y,CELL,CELL);
+        ctx.save();ctx.shadowColor='#0099dd';ctx.shadowBlur=8+bp*10;ctx.strokeStyle=`rgba(0,140,210,${0.6+bp*0.4})`;ctx.lineWidth=2;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
+        ctx.fillStyle=`rgba(0,150,220,${0.1+bp*0.12})`;ctx.fillRect(x+3,y+3,CELL-6,CELL-6);
+        ctx.fillStyle='#0077aa';ctx.font='bold 9px "Share Tech Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('基地',x+CELL/2,y+CELL/2);ctx.restore();
       } else if(v===3){
-        const sp=(Math.sin(t*0.08)+1)*0.5;ctx.fillStyle='#180408';ctx.fillRect(x,y,CELL,CELL);
-        ctx.save();ctx.shadowColor='#ff2244';ctx.shadowBlur=8+sp*10;ctx.strokeStyle=`rgba(255,34,68,${0.4+sp*0.6})`;ctx.lineWidth=1.5;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
-        ctx.fillStyle=`rgba(255,34,68,${0.03+sp*0.06})`;ctx.fillRect(x+3,y+3,CELL-6,CELL-6);
-        ctx.fillStyle='#ff2244';ctx.font='8px "Share Tech Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('出生',x+CELL/2,y+CELL/2);ctx.restore();
+        const sp=(Math.sin(t*0.08)+1)*0.5;ctx.fillStyle='#f2d2d8';ctx.fillRect(x,y,CELL,CELL);
+        ctx.save();ctx.shadowColor='#ee3355';ctx.shadowBlur=6+sp*8;ctx.strokeStyle=`rgba(220,50,70,${0.5+sp*0.5})`;ctx.lineWidth=1.5;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
+        ctx.fillStyle=`rgba(220,50,70,${0.06+sp*0.08})`;ctx.fillRect(x+3,y+3,CELL-6,CELL-6);
+        ctx.fillStyle='#cc2233';ctx.font='8px "Share Tech Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('出生',x+CELL/2,y+CELL/2);ctx.restore();
       }
     }
   }
   // Scan line
-  ctx.save();const sg=ctx.createLinearGradient(0,g.scanY-22,0,g.scanY+22);sg.addColorStop(0,'transparent');sg.addColorStop(0.5,'rgba(0,229,255,0.09)');sg.addColorStop(1,'transparent');ctx.fillStyle=sg;ctx.fillRect(0,g.scanY-22,W,44);ctx.strokeStyle='rgba(0,229,255,0.22)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(0,g.scanY);ctx.lineTo(W,g.scanY);ctx.stroke();ctx.restore();
+  ctx.save();const sg=ctx.createLinearGradient(0,g.scanY-22,0,g.scanY+22);sg.addColorStop(0,'transparent');sg.addColorStop(0.5,'rgba(0,150,210,0.07)');sg.addColorStop(1,'transparent');ctx.fillStyle=sg;ctx.fillRect(0,g.scanY-22,W,44);ctx.strokeStyle='rgba(0,150,210,0.18)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(0,g.scanY);ctx.lineTo(W,g.scanY);ctx.stroke();ctx.restore();
 }
 
 // ═══════════════════════════════════════════════════════════════
 // HUD
 // ═══════════════════════════════════════════════════════════════
 function drawHUD(ctx,g){
-  const hudG=ctx.createLinearGradient(0,0,W,0);hudG.addColorStop(0,'rgba(0,229,255,0.07)');hudG.addColorStop(0.5,'rgba(10,18,32,0.9)');hudG.addColorStop(1,'rgba(255,0,170,0.04)');
+  const hudG=ctx.createLinearGradient(0,0,W,0);hudG.addColorStop(0,'rgba(232,240,248,0.96)');hudG.addColorStop(0.5,'rgba(224,234,244,0.96)');hudG.addColorStop(1,'rgba(216,228,240,0.96)');
   ctx.fillStyle=hudG;ctx.fillRect(0,0,W,38);
-  ctx.strokeStyle='#00e5ff33';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,38);ctx.lineTo(W,38);ctx.stroke();
-  ctx.strokeStyle='#00e5ff11';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(0,39);ctx.lineTo(W,39);ctx.stroke();
-  const bk=14;ctx.strokeStyle='#00e5ff55';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(bk,0);ctx.lineTo(0,0);ctx.lineTo(0,bk);ctx.moveTo(W-bk,0);ctx.lineTo(W,0);ctx.lineTo(W,bk);ctx.stroke();
-  const items=[{label:'金幣',value:g.gold,color:'#ffe000',icon:'◆'},{label:'基地血量',value:g.baseHP,color:g.baseHP<=3?'#ff2244':'#00ff88',icon:'◉'},{label:'波次',value:g.waveIndex+' / 3',color:'#00e5ff',icon:'◈'},{label:'得分',value:g.score,color:'#cc88ff',icon:'◇'}];
-  items.forEach((item,i)=>{const x=18+i*202;if(i>0){ctx.strokeStyle='#00e5ff1e';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-4,6);ctx.lineTo(x-4,32);ctx.stroke();}ctx.fillStyle='#00e5ff33';ctx.font='9px "Share Tech Mono",monospace';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText(item.icon+' '+item.label,x,8);ctx.shadowColor=item.color;ctx.shadowBlur=8;ctx.fillStyle=item.color;ctx.font='bold 15px "Share Tech Mono",monospace';ctx.fillText(item.value,x,20);ctx.shadowBlur=0;});
+  ctx.strokeStyle='rgba(0,140,200,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,38);ctx.lineTo(W,38);ctx.stroke();
+  ctx.strokeStyle='rgba(0,140,200,0.12)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(0,39);ctx.lineTo(W,39);ctx.stroke();
+  const bk=14;ctx.strokeStyle='rgba(0,140,200,0.4)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(bk,0);ctx.lineTo(0,0);ctx.lineTo(0,bk);ctx.moveTo(W-bk,0);ctx.lineTo(W,0);ctx.lineTo(W,bk);ctx.stroke();
+  const items=[{label:'金幣',value:g.gold,color:'#cc9900',icon:'◆'},{label:'基地血量',value:g.baseHP,color:g.baseHP<=3?'#dd3344':'#11aa55',icon:'◉'},{label:'波次',value:g.waveIndex+' / 3',color:'#0088cc',icon:'◈'},{label:'得分',value:g.score,color:'#8855cc',icon:'◇'}];
+  items.forEach((item,i)=>{const x=18+i*202;if(i>0){ctx.strokeStyle='rgba(0,140,200,0.15)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-4,6);ctx.lineTo(x-4,32);ctx.stroke();}ctx.fillStyle='#6699aa';ctx.font='9px "Share Tech Mono",monospace';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText(item.icon+' '+item.label,x,8);ctx.shadowBlur=0;ctx.fillStyle=item.color;ctx.font='bold 15px "Share Tech Mono",monospace';ctx.fillText(item.value,x,20);ctx.shadowBlur=0;});
   if(g.waveActive&&g.totalEnemies>0){const alive=g.enemies.filter(e=>!e.dead&&!e.reached).length+g.spawnQ.length,prog=1-alive/g.totalEnemies;ctx.fillStyle='#00ff4406';ctx.fillRect(0,34,W,4);ctx.fillStyle='#00ff4428';ctx.fillRect(0,34,W*prog,4);ctx.fillStyle='#00ff4455';ctx.fillRect(0,34,W*prog,2);ctx.shadowColor='#00ff44';ctx.shadowBlur=6;ctx.fillStyle='#00ff4466';ctx.fillRect(W*prog-1,34,2,4);ctx.shadowBlur=0;}
   if(g.inCountdown){ctx.save();ctx.shadowColor='#ffe000';ctx.shadowBlur=14;ctx.fillStyle='#ffe000';ctx.font='bold 16px "Share Tech Mono",monospace';ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillText(g.countdown+' 秒後開波',W-18,19);ctx.restore();}
 }
@@ -787,6 +980,7 @@ const CD_SECS=3;let cdInterval=null,pendingWave=0;
 function manualStartWave(){if(!game||game.waveActive||game.inCountdown||game.waveIndex>=3)return;beginCD(game.waveIndex+1);}
 function beginCD(wn){
   if(!game||game.waveActive||game.inCountdown)return;
+  pickWaveEvent();
   game.inCountdown=true;game.countdown=CD_SECS;pendingWave=wn;
   document.getElementById('waveBtn').disabled=true;
   showCDNum(CD_SECS,wn);
@@ -803,12 +997,22 @@ function skipCountdown(){
   if(game)game.inCountdown=false;
   hideCD();execStartWave();
 }
-function showCDNum(n,wn){const el=document.getElementById('countdownOverlay'),nu=document.getElementById('countdownNum'),lb=document.getElementById('countdownLabel');nu.textContent=n;lb.textContent='第 '+wn+' 波來襲';el.style.display='block';nu.style.animation='none';nu.offsetHeight;nu.style.animation='cdpop 1s ease-out forwards';}
-function hideCD(){document.getElementById('countdownOverlay').style.display='none';}
+function showCDNum(n,wn){
+  const el=document.getElementById('countdownOverlay');
+  const nu=document.getElementById('countdownNum');
+  const lb=document.getElementById('countdownLabel');
+  nu.textContent=n;
+  lb.textContent='// 第 '+wn+' 波來襲';
+  el.style.display='flex';
+  // Re-trigger pop animation each second
+  nu.style.animation='none';
+  nu.offsetHeight; // reflow
+  nu.style.animation='cdpop 1s ease-out forwards';
+}
+function hideCD(){const el=document.getElementById('countdownOverlay');el.style.display='none';}
 function execStartWave(){
   if(!game||game.waveActive||game.waveIndex>=3)return;
-  const wd=WAVES[game.waveIndex],q=[];wd.forEach(({type,count})=>{for(let i=0;i<count;i++)q.push(type);});
-  for(let i=q.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[q[i],q[j]]=[q[j],q[i]];}
+  const q=buildSpawnQueue(game.waveIndex);
   game.spawnQ=q;game.spawnTimer=0;game.waveActive=true;game.waveIndex++;game.totalEnemies=q.length;
   document.getElementById('waveBtn').disabled=true;
   sfxWaveStart();
@@ -817,8 +1021,53 @@ function execStartWave(){
 // ═══════════════════════════════════════════════════════════════
 // GAME CONTROL
 // ═══════════════════════════════════════════════════════════════
-function startGame(){
-  ['menuOverlay','victoryOverlay','gameoverOverlay'].forEach(id=>document.getElementById(id).style.display='none');
+// ── 關卡選擇 ──
+function openLevelSelect(){
+  document.getElementById('menuOverlay').style.display='none';
+  const grid=document.getElementById('levelGrid');
+  grid.innerHTML='';
+  LEVELS.forEach((lv,i)=>{
+    const card=document.createElement('div');
+    card.className='level-card';
+    card.onclick=()=>startGame(i);
+    card.innerHTML=`<div class="lc-name">${lv.name}</div><div class="lc-desc">${lv.desc}</div>`;
+    const cv=document.createElement('canvas');
+    cv.width=150;cv.height=100;
+    card.appendChild(cv);
+    grid.appendChild(card);
+    drawMiniMap(cv,lv.map);
+  });
+  document.getElementById('levelOverlay').style.display='flex';
+}
+function backToMenu(){
+  document.getElementById('levelOverlay').style.display='none';
+  document.getElementById('menuOverlay').style.display='flex';
+}
+// 迷你地圖預覽
+function drawMiniMap(cv,map){
+  const mctx=cv.getContext('2d');
+  const cw=cv.width/COLS, ch=cv.height/ROWS;
+  mctx.fillStyle='#e3ecf4';mctx.fillRect(0,0,cv.width,cv.height);
+  for(let r=0;r<ROWS;r++)for(let cc=0;cc<COLS;cc++){
+    const v=map[r][cc];
+    if(v===1){mctx.fillStyle='#22cc66';mctx.fillRect(cc*cw,r*ch,cw,ch);}
+    else if(v===2){mctx.fillStyle='#0099dd';mctx.fillRect(cc*cw,r*ch,cw,ch);}
+    else if(v===3){mctx.fillStyle='#ee3355';mctx.fillRect(cc*cw,r*ch,cw,ch);}
+  }
+  // 細格線
+  mctx.strokeStyle='rgba(0,140,200,0.1)';mctx.lineWidth=0.5;
+  for(let cc=0;cc<=COLS;cc++){mctx.beginPath();mctx.moveTo(cc*cw,0);mctx.lineTo(cc*cw,cv.height);mctx.stroke();}
+  for(let r=0;r<=ROWS;r++){mctx.beginPath();mctx.moveTo(0,r*ch);mctx.lineTo(cv.width,r*ch);mctx.stroke();}
+}
+
+function startGame(levelIndex){
+  // 載入指定關卡（沒帶參數則用目前選的）
+  if(typeof levelIndex==='number')currentLevel=levelIndex;
+  MAP_DEF=LEVELS[currentLevel].map;
+  PATH_PTS=LEVELS[currentLevel].path;
+  WAVES=LEVELS[currentLevel].waves;
+  PATH=buildPath();
+  ['menuOverlay','victoryOverlay','gameoverOverlay','levelOverlay'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.getElementById('menuHS').textContent=fmtHS(getHS());
   hideCD();if(cdInterval){clearInterval(cdInterval);cdInterval=null;}
   if(loopId){cancelAnimationFrame(loopId);loopId=null;}
@@ -826,13 +1075,15 @@ function startGame(){
   document.getElementById('waveBtn').disabled=false;document.getElementById('waveBtn').textContent='▶ 第 1 波';document.getElementById('waveBtn').style.display='';
   document.getElementById('sellBtn').style.display='none';document.getElementById('upgradeBtn').style.display='none';
   document.getElementById('hint').textContent='← 選擇塔種後點空地建造';
+  towerRateMulActive=1;currentWaveEvent=null;
+  document.getElementById('waveEventBanner').style.display='none';
   document.getElementById('pauseBtn').textContent='⏸ 暫停';
   document.getElementById('pauseBtn').classList.remove('paused');
   document.getElementById('pauseOverlay').style.display='none';
   loopId=requestAnimationFrame(loop);
 }
 function restartGame(){startGame();}
-function goMainMenu(){if(cdInterval){clearInterval(cdInterval);cdInterval=null;}if(loopId){cancelAnimationFrame(loopId);loopId=null;}hideCD();game=null;['victoryOverlay','gameoverOverlay'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('menuHS').textContent=fmtHS(getHS());document.getElementById('menuOverlay').style.display='flex';ctx.fillStyle='#0a1220';ctx.fillRect(0,0,W,H);}
+function goMainMenu(){if(cdInterval){clearInterval(cdInterval);cdInterval=null;}if(loopId){cancelAnimationFrame(loopId);loopId=null;}hideCD();game=null;['victoryOverlay','gameoverOverlay'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('menuHS').textContent=fmtHS(getHS());document.getElementById('levelOverlay').style.display='none';document.getElementById('menuOverlay').style.display='flex';ctx.fillStyle='#e3ecf4';ctx.fillRect(0,0,W,H);}
 function selectTower(t){if(!game)return;game.selType=game.selType===t?null:t;game.selTower=null;updateTB();}
 function upgradeSelected(){
   if(!game||!game.selTower)return;const t=game.selTower;
@@ -899,7 +1150,7 @@ function loop(){
   game.radarAngle=(game.radarAngle+0.007)%(Math.PI*2);
 
   // Spawn
-  if(game.waveActive&&game.spawnQ.length>0){game.spawnTimer--;if(game.spawnTimer<=0){game.enemies.push(new Enemy(game.spawnQ.shift()));game.spawnTimer=game.spawnInterval;}}
+  if(game.waveActive&&game.spawnQ.length>0){game.spawnTimer--;if(game.spawnTimer<=0){const s=game.spawnQ.shift();game.enemies.push(new Enemy(s.type,s.opts||{}));game.spawnTimer=game.spawnInterval;}}
 
   // Update enemies
   game.enemies.forEach(e=>{
@@ -965,11 +1216,11 @@ function loop(){
 // ═══════════════════════════════════════════════════════════════
 const TUT=[
   {title:'任務目標',sub:'守住基地，撐過三波進攻',html:`<p class="tut-body">敵人從左側 <span style="color:#ff2244">出生點</span> 出發沿固定路徑前進，目標是到達右側 <span style="color:#00e5ff">基地</span>。每當一隻敵人抵達，基地血量扣 1。歸零即 <span style="color:#ff2244">任務失敗</span>。</p><p class="tut-body">在路徑旁的空格建塔，三波全清即 <span style="color:#00ff88">任務完成</span>。</p><div class="tut-tip">▸ 路徑格和已佔用格無法建塔，只有深色空格可以放置。</div>`},
-  {title:'狀態儀表板',sub:'掌握四個核心數值',html:`<div class="tut-grid2"><div class="tut-box"><p class="tut-box-title" style="color:#ffe000">◆ 金幣</p><p class="tut-box-sub">初始 200G。建塔、升級用。擊殺敵人可獲得更多。金幣會以飄字顯示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#00ff88">◉ 基地血量</p><p class="tut-box-sub">基地血量共 10 點。低於 3 時變紅色警示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#00e5ff">◈ 波次</p><p class="tut-box-sub">目前波次 / 總波次，共 3 波。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#cc88ff">◇ 得分</p><p class="tut-box-sub">建塔 +5、升級 +10、擊殺依敵人獎勵計算。</p></div></div><div class="tut-tip">▸ 每波結束後倒數 5 秒自動開始，可點「立即開始」跳過倒數。</div>`},
-  {title:'防禦系統',sub:'三種防禦塔，各有特色',html:`<div class="tut-grid3"><div class="tut-box" style="border-color:#00e5ff18"><p class="tut-box-title" style="color:#00e5ff">⚙ 機槍塔</p><p class="tut-box-sub" style="color:#00e5ff55;margin-bottom:5px">100 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:85%;background:#00e5ff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:40%;background:#00e5ff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:60%;background:#00e5ff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">單體持續輸出，有曳光彈拖尾</p></div><div class="tut-box" style="border-color:#ff620018"><p class="tut-box-title" style="color:#ff8844">🔥 火焰塔</p><p class="tut-box-sub" style="color:#ff884455;margin-bottom:5px">150 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:25%;background:#ff8844"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:90%;background:#ff8844"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:45%;background:#ff8844"></div></div></div><p class="tut-box-sub" style="margin-top:5px">範圍爆炸，有火焰拖尾</p></div><div class="tut-box" style="border-color:#44aaff18"><p class="tut-box-title" style="color:#66ccff">❄ 冰霜塔</p><p class="tut-box-sub" style="color:#66ccff55;margin-bottom:5px">120 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:55%;background:#66ccff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:50%;background:#66ccff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:65%;background:#66ccff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">六角冰晶彈，命中後減速</p></div></div><div class="tut-warn">▲ 火焰塔攻速極慢，打快速兵效果差，配合冰霜塔先減速再引爆。</div>`},
-  {title:'敵方單位',sub:'辨認形狀，調整應對方式',html:`<div class="tut-card" style="padding:7px 10px"><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="8" fill="#ff33661a" stroke="#ff3366" stroke-width="1.2"/></svg><div style="flex:1"><div style="font-size:11px;color:#ff3366;margin-bottom:2px">普通兵 <span class="tut-badge" style="background:#00ff4425;color:#00ff44;border:1px solid #00ff4444">第 1–3 波</span></div><div style="font-size:10px;color:#6688aa">血量 100 · 速度 1.0 · 形狀：圓形</div></div><span style="font-size:11px;color:#00ff88">+20G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="13,2 24,22 2,22" fill="#ffe0001a" stroke="#ffe000" stroke-width="1.2"/></svg><div style="flex:1"><div style="font-size:11px;color:#ffe000;margin-bottom:2px">快速兵 <span class="tut-badge" style="background:#ffe00010;color:#ffe000;border:1px solid #ffe00022">第 2–3 波</span></div><div style="font-size:10px;color:#6688aa">血量 70 · 速度 1.6 · 形狀：三角形</div></div><span style="font-size:11px;color:#00ff88">+30G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" rx="2" fill="#cc44ff1a" stroke="#cc44ff" stroke-width="1.2"/></svg><div style="flex:1"><div style="font-size:11px;color:#cc44ff;margin-bottom:2px">坦克兵 <span class="tut-badge" style="background:#ff224410;color:#ff2244;border:1px solid #ff224422">第 3 波</span></div><div style="font-size:10px;color:#6688aa">血量 250 · 速度 0.6 · 形狀：方形</div></div><span style="font-size:11px;color:#00ff88">+50G</span></div></div><div class="tut-tip">▸ 敵人死亡時有碎片爆炸動畫，金幣飄字同步顯示。</div>`},
+  {title:'狀態儀表板',sub:'掌握四個核心數值',html:`<div class="tut-grid2"><div class="tut-box"><p class="tut-box-title" style="color:#ffe000">◆ 金幣</p><p class="tut-box-sub">開局金幣依關卡而定。建塔、升級用，擊殺敵人可獲得更多，以飄字顯示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#00ff88">◉ 基地血量</p><p class="tut-box-sub">基地血量依關卡而定（簡單關較多）。低於 3 時變紅色警示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#00e5ff">◈ 波次</p><p class="tut-box-sub">目前波次 / 總波次，共 3 波。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#cc88ff">◇ 得分</p><p class="tut-box-sub">建塔 +5、升級 +10、擊殺依敵人獎勵計算。</p></div></div><div class="tut-tip">▸ 每波結束後倒數 3 秒自動開始，可點「立即開始」跳過倒數。</div>`},
+  {title:'防禦系統',sub:'三種防禦塔，各有特色',html:`<div class="tut-grid3"><div class="tut-box" style="border-color:#00e5ff18"><p class="tut-box-title" style="color:#00e5ff">⚙ 機槍塔</p><p class="tut-box-sub" style="color:#00e5ff55;margin-bottom:5px">100 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:85%;background:#00e5ff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:40%;background:#00e5ff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:60%;background:#00e5ff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">雙管砲塔 · 曳光彈單體輸出</p></div><div class="tut-box" style="border-color:#ff620018"><p class="tut-box-title" style="color:#ff8844">🔥 火焰塔</p><p class="tut-box-sub" style="color:#ff884455;margin-bottom:5px">150 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:25%;background:#ff8844"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:90%;background:#ff8844"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:45%;background:#ff8844"></div></div></div><p class="tut-box-sub" style="margin-top:5px">噴射砲口 · 火焰範圍爆炸</p></div><div class="tut-box" style="border-color:#44aaff18"><p class="tut-box-title" style="color:#66ccff">❄ 冰霜塔</p><p class="tut-box-sub" style="color:#66ccff55;margin-bottom:5px">120 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:55%;background:#66ccff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:50%;background:#66ccff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:65%;background:#66ccff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">晶體砲口 · 冰晶彈命中減速</p></div></div><div class="tut-warn">▲ 火焰塔攻速極慢，打快速兵效果差，配合冰霜塔先減速再引爆。</div>`},
+  {title:'敵方單位',sub:'辨認外型，調整應對方式',html:`<div class="tut-card" style="padding:7px 10px"><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="22,13 17.5,20.8 8.5,20.8 4,13 8.5,5.2 17.5,5.2" fill="#ff33662a" stroke="#ff3366" stroke-width="1.3"/><circle cx="13" cy="13" r="3" fill="#ff3366"/></svg><div style="flex:1"><div style="font-size:11px;color:#ff3366;margin-bottom:2px">普通兵 <span class="tut-badge" style="background:#00ff4425;color:#00aa44;border:1px solid #00aa4444">第 1–3 波</span></div><div style="font-size:10px;color:#446677">血量 100 · 速度 1.0 · 六角機體</div></div><span style="font-size:11px;color:#00aa55">+20G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="23,13 9,19 12,13 9,7" fill="#ee99002a" stroke="#ee9900" stroke-width="1.3"/><polygon points="9,13 3,15.5 3,10.5" fill="#ffcc44"/></svg><div style="flex:1"><div style="font-size:11px;color:#ee9900;margin-bottom:2px">快速兵 <span class="tut-badge" style="background:#ee990018;color:#cc7700;border:1px solid #ee990033">第 2–3 波</span></div><div style="font-size:10px;color:#446677">血量 80 · 速度 1.7 · 梭形(有尾焰)</div></div><span style="font-size:11px;color:#00aa55">+30G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="4" y="5" width="18" height="16" rx="3" fill="#cc44ff2a" stroke="#cc44ff" stroke-width="1.3"/><rect x="4" y="3" width="18" height="2" fill="#cc44ff66"/><rect x="4" y="21" width="18" height="2" fill="#cc44ff66"/><circle cx="13" cy="13" r="3" fill="#cc44ff"/></svg><div style="flex:1"><div style="font-size:11px;color:#cc44ff;margin-bottom:2px">坦克兵 <span class="tut-badge" style="background:#cc44ff18;color:#aa22dd;border:1px solid #cc44ff33">第 3 波</span></div><div style="font-size:10px;color:#446677">血量 300 · 速度 0.55 · 裝甲履帶</div></div><span style="font-size:11px;color:#00aa55">+60G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="23,13 19,17 19,22 13,23 7,22 7,17 3,13 7,9 7,4 13,3 19,4 19,9" fill="#ff44002a" stroke="#ff4400" stroke-width="1.3"/><circle cx="13" cy="13" r="3.5" fill="#ff8800"/></svg><div style="flex:1"><div style="font-size:11px;color:#ff4400;margin-bottom:2px">首領 BOSS <span class="tut-badge" style="background:#ff440018;color:#dd3300;border:1px solid #ff440033">第 3 波壓軸</span></div><div style="font-size:10px;color:#446677">血量 1500 · 速度 0.4 · 雙環核心</div></div><span style="font-size:11px;color:#00aa55">+200G</span></div></div><div class="tut-tip">▸ 敵人死亡時有碎片爆炸動畫，金幣飄字同步顯示。</div><div class="tut-tip" style="margin-top:4px">▸ 不同關卡敵人血量/速度會有倍率加成，難度越高越強。</div>`},
   {title:'建造操作',sub:'建造、升級、賣出',html:`<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px"><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</span><p class="tut-box-sub" style="margin:0">點擊塔種按鈕，滑鼠移到空格，點擊建造。建塔時有<span style="color:#00e5ff">光環爆發動畫</span>與音效。</p></div><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</span><p class="tut-box-sub" style="margin:0">點擊塔可升級（最多 Lv3）。升級有<span style="color:#88ff44">音階上升音效</span>和縮放動畫。</p></div><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</span><p class="tut-box-sub" style="margin:0">傷害數字浮現在敵人上方，擊殺後<span style="color:#ffe000">金幣飄字</span>顯示獎勵。</p></div></div><div class="tut-tip">▸ 🔊 按鈕可隨時關閉音效</div>`},
-  {title:'波次策略',sub:'善用波次間的空檔部署防線',html:`<table class="tut-wave-table"><thead><tr><th>波次</th><th>普通兵</th><th>快速兵</th><th>坦克兵</th><th>重點</th></tr></thead><tbody><tr><td style="color:#00e5ff">第 1 波</td><td>×10</td><td>—</td><td>—</td><td style="color:#00ff88">建立火力</td></tr><tr><td style="color:#ffe000">第 2 波</td><td>×8</td><td>×8</td><td>—</td><td style="color:#ffaa44">加冰霜控速</td></tr><tr><td style="color:#ff4466">第 3 波</td><td>×5</td><td>×8</td><td>×5</td><td style="color:#ff6688">升火焰打坦克</td></tr></tbody></table><div class="tut-grid2" style="margin-top:7px"><div class="tut-box"><p class="tut-box-title" style="color:#66ccff">❄+🔥 組合</p><p class="tut-box-sub">冰霜減速後火焰引爆，範圍傷害效益翻倍。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#ffe000">轉角卡位</p><p class="tut-box-sub">路徑轉彎處停留最久，優先在轉角旁建塔。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#88ff44">升級優先</p><p class="tut-box-sub">Lv3 機槍塔輸出遠勝兩座 Lv1。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#ff8844">留金應急</p><p class="tut-box-sub">第 3 波前保留 150G+ 應對坦克突破。</p></div></div>`},
+  {title:'波次與事件',sub:'三波進攻，難度逐波升高',html:`<table class="tut-wave-table"><thead><tr><th>波次</th><th>組成</th><th>重點</th></tr></thead><tbody><tr><td style="color:#0099dd">第 1 波</td><td style="color:#446677">普通為主</td><td style="color:#00aa55">建立基礎火力</td></tr><tr><td style="color:#cc9900">第 2 波</td><td style="color:#446677">混入快速兵與坦克</td><td style="color:#cc7700">加冰霜控速</td></tr><tr><td style="color:#dd3344">第 3 波</td><td style="color:#446677">坦克群 + 首領 BOSS</td><td style="color:#cc2233">升火焰、集中輸出</td></tr></tbody></table><div class="tut-tip" style="margin:6px 0">▸ 實際數量依關卡而異，難關敵人更多、血量更高。每波開始前的倒數畫面會顯示該波的<span style="color:#cc7700">隨機事件</span>。</div><div class="tut-grid2" style="margin-top:6px"><div class="tut-box"><p class="tut-box-title" style="color:#0088dd">❄+🔥 組合</p><p class="tut-box-sub">冰霜減速後火焰引爆，範圍傷害效益翻倍。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#cc9900">轉角卡位</p><p class="tut-box-sub">路徑轉彎處停留最久，優先在轉角旁建塔。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#449911">升級優先</p><p class="tut-box-sub">Lv3 機槍塔輸出遠勝兩座 Lv1。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#dd5500">應對 BOSS</p><p class="tut-box-sub">BOSS 血厚移動慢，集中冰霜+火焰可有效擊破。</p></div></div>`},
 ];
 let tutCur=0;const tutDone=new Set();
 function openTutorial(){tutCur=0;tutDone.clear();document.getElementById('tutOverlay').style.display='flex';tutRender();}
