@@ -7,10 +7,10 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Share Tech Mono','Courier New',monospace;color:#0a3a55;overflow:hidden;}
+body{background:linear-gradient(135deg,#b0c2d2,#bccadb);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Share Tech Mono','Courier New',monospace;color:#0a3a55;overflow:hidden;}
 #gameWrapper{position:relative;display:flex;flex-direction:column;align-items:center;}
 #gameCanvas{display:block;cursor:crosshair;border:1px solid #aaccdd;border-radius:8px 8px 0 0;box-shadow:0 8px 40px rgba(0,100,160,0.18),0 2px 8px rgba(0,80,130,0.1);}
-#toolbar{display:flex;flex-direction:column;padding:0;background:linear-gradient(180deg,#e8eff6,#d8e2ec);border:1px solid #bcd4e2;border-top:none;border-radius:0 0 8px 8px;width:100%;box-shadow:0 4px 16px rgba(0,90,140,0.1);}
+#toolbar{display:flex;flex-direction:column;padding:0;background:linear-gradient(180deg,#d8e2ec,#c8d4e0);border:1px solid #bcd4e2;border-top:none;border-radius:0 0 8px 8px;width:100%;box-shadow:0 4px 16px rgba(0,90,140,0.1);}
 #toolbarHint{font-size:10px;color:#3a7a9a;padding:4px 12px;border-bottom:1px solid #cfe0ea;letter-spacing:1px;min-height:20px;display:flex;align-items:center;background:rgba(0,150,210,0.04);}
 #toolbarMain{display:flex;align-items:center;padding:5px 8px;gap:0;}
 .tb-group{display:flex;align-items:center;gap:5px;flex-shrink:0;}
@@ -41,14 +41,14 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
 #pauseBtn:hover{border-color:#cc9900;background:linear-gradient(135deg,#fff6dd,#ffeec0);box-shadow:0 4px 14px rgba(220,170,0,0.4);transform:translateY(-2px);}
 #pauseBtn.paused{background:linear-gradient(135deg,#ddf5e6,#ccf0dd);border-color:#22bb66;color:#0a9944;}
 #pauseBtn.paused:hover{border-color:#0a9944;box-shadow:0 4px 14px rgba(20,180,80,0.4);transform:translateY(-2px);}
-#pauseOverlay{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(238,245,250,0.95),rgba(224,236,246,0.93));backdrop-filter:blur(3px);z-index:15;}
+#pauseOverlay{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(220,230,240,0.96),rgba(206,220,234,0.94));backdrop-filter:blur(3px);z-index:15;}
 #pauseOverlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,229,255,0.01) 2px,rgba(0,229,255,0.01) 4px);pointer-events:none;}
 #pauseOverlay h2{font-size:36px;letter-spacing:8px;color:#cc9900;text-shadow:0 2px 12px rgba(200,150,0,0.3);margin-bottom:8px;}
 #pauseOverlay .p-sub{font-size:11px;color:#bb9933;letter-spacing:4px;margin-bottom:36px;}
 #pauseOverlay .p-stats{display:flex;gap:32px;margin-bottom:32px;font-size:12px;}
 #pauseOverlay .p-stat{text-align:center;}
 #pauseOverlay .p-stat-val{font-size:22px;font-weight:bold;color:#0a3a55;display:block;margin-top:4px;}
-#pauseOverlay .p-stat-lbl{color:#5599bb;font-size:10px;letter-spacing:2px;}
+#pauseOverlay .p-stat-lbl{color:#3a6a85;font-size:10px;letter-spacing:2px;}
 #confirmQuit{display:none;flex-direction:column;align-items:center;margin-top:8px;}
 #confirmQuit .q-msg{font-size:12px;color:#ff444488;letter-spacing:2px;margin-bottom:12px;}
 #confirmQuit .q-btns{display:flex;gap:10px;}
@@ -56,8 +56,8 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
 #waveEventBanner{position:absolute;top:42px;left:50%;transform:translateX(-50%);display:none;z-index:8;text-align:center;pointer-events:none;animation:bannerIn 0.4s ease-out forwards;}
 @keyframes bannerIn{0%{opacity:0;transform:translateX(-50%) translateY(-10px);}100%{opacity:1;transform:translateX(-50%) translateY(0);}}
 #waveEventBanner .ev-title{font-size:13px;letter-spacing:3px;padding:5px 22px;border:1px solid #ff880088;color:#ff8800;background:linear-gradient(135deg,rgba(10,18,32,0.95),rgba(20,12,0,0.9));clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);text-shadow:0 0 12px #ff880088;}
-#waveEventBanner .ev-desc{font-size:10px;color:#ff880077;letter-spacing:2px;margin-top:3px;}
-.overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(208,222,236,0.95),rgba(190,206,224,0.93));backdrop-filter:blur(3px);z-index:10;}
+#waveEventBanner .ev-desc{font-size:10px;color:#cc6600;letter-spacing:2px;margin-top:3px;}
+.overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(190,206,222,0.95),rgba(172,190,210,0.94));backdrop-filter:blur(3px);z-index:10;}
 .overlay::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,130,190,0.018) 2px,rgba(0,130,190,0.018) 4px);pointer-events:none;animation:sc 8s linear infinite;}
 @keyframes sc{0%{background-position:0 0}100%{background-position:0 200px}}
 .overlay h1{font-size:52px;letter-spacing:10px;text-transform:uppercase;color:#005580;text-shadow:0 2px 16px rgba(0,100,150,0.3),0 0 30px rgba(0,140,200,0.2);margin-bottom:6px;line-height:1.1;text-align:center;animation:glitch 5s infinite;}
@@ -75,7 +75,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
 #gameoverOverlay .overlay-btn{border-color:#dd3344;color:#cc2233;}
 #gameoverOverlay .overlay-btn:hover{background:linear-gradient(135deg,#ee4455,#dd3344);color:#fff;box-shadow:0 4px 20px rgba(220,50,70,0.35);}
 .score-display{font-size:20px;color:#0a3a55;margin:8px 0 18px;letter-spacing:3px;}
-#tutOverlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(238,245,250,0.98),rgba(224,236,246,0.97));z-index:20;display:none;flex-direction:column;align-items:stretch;overflow:hidden;}
+#tutOverlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(220,230,240,0.98),rgba(206,220,234,0.97));z-index:20;display:none;flex-direction:column;align-items:stretch;overflow:hidden;}
 #tutHeader{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px;border-bottom:1px solid #00e5ff33;flex-shrink:0;background:linear-gradient(90deg,#00e5ff06,transparent);}
 #tutHeader h2{font-size:11px;letter-spacing:4px;color:#3a6a85;}
 #tutClose{background:#ffffff;border:1px solid #88bbd5;color:#005580;padding:3px 12px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:11px;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);transition:all 0.2s;}
@@ -108,7 +108,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
 .tut-enemy-row:last-child{border-bottom:none;}
 .tut-badge{display:inline-block;padding:1px 6px;font-size:9px;}
 .tut-wave-table{width:100%;border-collapse:collapse;font-size:10px;margin:5px 0;}
-.tut-wave-table th{color:#5599bb;padding:3px 5px;border-bottom:1px solid #00e5ff28;text-align:left;}
+.tut-wave-table th{color:#3a6a85;padding:3px 5px;border-bottom:1px solid #00e5ff28;text-align:left;}
 .tut-wave-table td{color:#446677;padding:4px 5px;border-bottom:1px solid #e0ecf3;}
 .tut-wave-table tr:last-child td{border-bottom:none;}
 #tutFooter{display:flex;gap:6px;padding:8px 18px;border-top:1px solid #cfe0ea;flex-shrink:0;background:linear-gradient(180deg,transparent,#00e5ff04);}
@@ -121,7 +121,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
   position:absolute;top:0;left:0;width:100%;height:100%;
   display:none;flex-direction:column;align-items:center;justify-content:center;
   pointer-events:none;z-index:5;
-  background:rgba(230,240,248,0.72);
+  background:rgba(206,220,234,0.74);
 }
 #countdownNum{
   font-size:72px;color:#0088cc;line-height:1;
@@ -135,7 +135,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
   100%{transform:scale(0.8);opacity:0;}
 }
 #countdownLabel{
-  font-size:11px;letter-spacing:3px;color:#5599bb;
+  font-size:11px;letter-spacing:3px;color:#3a6a85;
   margin-top:2px;margin-bottom:18px;
 }
 /* 事件：單行文字，無卡片框 */
@@ -146,7 +146,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
   text-shadow:0 0 10px currentColor;
 }
 #cdEventDesc{
-  font-size:10px;letter-spacing:1px;color:#5599bb;
+  font-size:10px;letter-spacing:1px;color:#3a6a85;
   transition:color 0.3s;
 }
 #skipBtn{
@@ -164,7 +164,8 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
 .level-card:hover{border-color:#0088cc;box-shadow:0 6px 20px rgba(0,140,200,0.3);transform:translateY(-3px);}
 .level-card .lc-name{font-size:16px;color:#005580;letter-spacing:2px;margin-bottom:4px;}
 .level-card .lc-desc{font-size:10px;color:#4a7a95;margin-bottom:10px;min-height:24px;}
-.level-card canvas{display:block;margin:0 auto;border:1px solid #cfe0ea;border-radius:4px;background:#e3ecf4;}
+.level-card canvas{display:block;margin:0 auto;border:1px solid #cfe0ea;border-radius:4px;background:#d4e0ea;}
+#menuBg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -194,11 +195,12 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
     </div>
   </div>
   <div class="overlay" id="menuOverlay">
-    <h1>MACHINE<br>RIFT</h1>
-    <div class="subtitle">戰術防禦系統 v1.0</div>
-    <div id="menuHS" style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:28px;"></div>
-    <button class="overlay-btn" onclick="openLevelSelect()">[ 開始任務 ]</button>
-    <button class="overlay-btn" onclick="openTutorial()" style="border-color:#00e5ff55;color:#00e5ff55;font-size:11px;padding:7px 26px;margin-top:2px">[ 戰術簡報 ]</button>
+    <canvas id="menuBg"></canvas>
+    <h1 style="position:relative;z-index:1">MACHINE<br>RIFT</h1>
+    <div class="subtitle" style="position:relative;z-index:1">戰術防禦系統 v1.0</div>
+    <div id="menuHS"  style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:28px;"></div>
+    <button class="overlay-btn" onclick="openLevelSelect()" style="position:relative;z-index:1">[ 開始任務 ]</button>
+    <button class="overlay-btn" onclick="openTutorial()" style="border-color:#3a6a8555;color:#3a6a85;font-size:11px;padding:7px 26px;margin-top:2px;position:relative;z-index:1">[ 戰術簡報 ]</button>
   </div>
   <!-- 關卡選擇 -->
   <div class="overlay" id="levelOverlay" style="display:none">
@@ -213,7 +215,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
     <div class="score-display" id="gameoverScore"></div>
     <div id="gameoverHS" style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:6px;"></div>
     <button class="overlay-btn" onclick="restartGame()">[ 重新挑戰 ]</button>
-    <button class="overlay-btn" onclick="goMainMenu()" style="border-color:#00e5ff55;color:#00e5ff55;font-size:11px;padding:7px 26px">[ 主選單 ]</button>
+    <button class="overlay-btn" onclick="goMainMenu()" style="border-color:#3a6a8555;color:#3a6a85;font-size:11px;padding:7px 26px">[ 主選單 ]</button>
   </div>
   <div class="overlay" id="victoryOverlay" style="display:none">
     <h1>任務<br>完成</h1>
@@ -221,7 +223,7 @@ body{background:linear-gradient(135deg,#c2d2e0,#d0dce8);display:flex;flex-direct
     <div class="score-display" id="victoryScore"></div>
     <div id="victoryHS" style="font-size:12px;color:#996600;letter-spacing:2px;margin-bottom:6px;"></div>
     <button class="overlay-btn" onclick="restartGame()">[ 再戰一次 ]</button>
-    <button class="overlay-btn" onclick="goMainMenu()" style="border-color:#00ff8855;color:#00ff8855;font-size:11px;padding:7px 26px">[ 主選單 ]</button>
+    <button class="overlay-btn" onclick="goMainMenu()" style="border-color:#0a994455;color:#0a9944;font-size:11px;padding:7px 26px">[ 主選單 ]</button>
   </div>
   <div id="waveEventBanner" style="display:none">
     <div class="ev-title" id="evTitle">—</div>
@@ -902,22 +904,53 @@ function drawParticles(ctx,p){
 // ═══════════════════════════════════════════════════════════════
 function drawMap(ctx,map,g){
   const t=g.animFrame;
-  ctx.fillStyle='#e3ecf4';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#d4e0ea';ctx.fillRect(0,0,W,H);
   // Radar
   ctx.save();ctx.globalAlpha=0.08;
   const rg=ctx.createConicGradient(g.radarAngle,W/2,H/2);
   rg.addColorStop(0,'#0099dd');rg.addColorStop(0.1,'#0099dd');rg.addColorStop(0.15,'transparent');rg.addColorStop(1,'transparent');
   ctx.fillStyle=rg;ctx.beginPath();ctx.arc(W/2,H/2,Math.max(W,H),0,Math.PI*2);ctx.fill();ctx.restore();
+  // ── 科技背景細節 ──
+  // 電路紋路
+  ctx.save();ctx.strokeStyle='rgba(0,110,170,0.16)';ctx.lineWidth=1.2;
+  const _circuit=[[2,1,5],[7,3,4],[11,6,3],[4,8,6],[9,1,3],[13,4,5],[1,5,4],[6,7,5]];
+  _circuit.forEach(s=>{const cx=s[0]*CELL,cy=s[1]*CELL;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+s[2]*CELL*0.5,cy);ctx.lineTo(cx+s[2]*CELL*0.5,cy+CELL*1.5);ctx.stroke();ctx.fillStyle='rgba(0,110,170,0.28)';ctx.fillRect(cx-2.5,cy-2.5,5,5);});
+  ctx.restore();
+  // 同心圓刻度環
+  ctx.save();ctx.strokeStyle='rgba(0,130,190,0.14)';ctx.lineWidth=1;
+  [80,160,240].forEach(rad=>{ctx.beginPath();ctx.arc(W/2,H/2,rad,0,Math.PI*2);ctx.stroke();});
+  for(let i=0;i<24;i++){const a=i*Math.PI/12;ctx.beginPath();ctx.moveTo(W/2+Math.cos(a)*240,H/2+Math.sin(a)*240);ctx.lineTo(W/2+Math.cos(a)*250,H/2+Math.sin(a)*250);ctx.stroke();}
+  ctx.restore();
   // Grid lines
   ctx.strokeStyle='rgba(0,140,200,0.12)';ctx.lineWidth=0.5;
   for(let c=0;c<=COLS;c++){ctx.beginPath();ctx.moveTo(c*CELL,0);ctx.lineTo(c*CELL,H);ctx.stroke();}
   for(let r=0;r<=ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(W,r*CELL);ctx.stroke();}
+  // 格線交叉節點 (小十字)
+  ctx.strokeStyle='rgba(0,130,190,0.35)';ctx.lineWidth=1;
+  for(let cc=0;cc<=COLS;cc+=3){for(let rr=0;rr<=ROWS;rr+=2){const nx=cc*CELL,ny=rr*CELL;ctx.beginPath();ctx.moveTo(nx-4,ny);ctx.lineTo(nx+4,ny);ctx.moveTo(nx,ny-4);ctx.lineTo(nx,ny+4);ctx.stroke();}}
+  // 流動資料點
+  ctx.save();
+  for(let i=0;i<8;i++){const row=(i*137)%ROWS;const px=((t*0.7+i*110)%(W+40))-20;ctx.fillStyle='rgba(0,150,215,0.4)';ctx.shadowColor='#0099dd';ctx.shadowBlur=6;ctx.beginPath();ctx.arc(px,row*CELL,2.2,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+  // 四角 HUD 裝飾框 (避開頂部 HUD)
+  ctx.save();ctx.strokeStyle='rgba(0,120,180,0.5)';ctx.lineWidth=2;
+  const _m=12,_L=28,_topY=44;
+  [[_m,_topY,1,1],[W-_m,_topY,-1,1],[_m,H-_m,1,-1],[W-_m,H-_m,-1,-1]].forEach(cn=>{ctx.beginPath();ctx.moveTo(cn[0]+cn[2]*_L,cn[1]);ctx.lineTo(cn[0],cn[1]);ctx.lineTo(cn[0],cn[1]+cn[3]*_L);ctx.stroke();});
+  // 角落座標標籤
+  ctx.fillStyle='rgba(0,120,180,0.4)';ctx.font='8px "Share Tech Mono",monospace';
+  ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText('SYS//GRID',_m+4,_topY+4);
+  ctx.textAlign='right';ctx.textBaseline='bottom';ctx.fillText('SEC-01',W-_m-4,H-_m-4);
+  ctx.restore();
+  // 邊緣刻度尺 (左側 + 頂部,像量測刻度)
+  ctx.save();ctx.strokeStyle='rgba(0,130,190,0.22)';ctx.lineWidth=1;
+  for(let r=1;r<ROWS;r++){const len=r%2===0?6:3;ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(len,r*CELL);ctx.stroke();}
+  ctx.restore();
   // Cells
   for(let r=0;r<ROWS;r++){
     for(let c=0;c<COLS;c++){
       const v=map[r][c],x=c*CELL,y=r*CELL;
       if(v===1){
-        ctx.fillStyle='#d2ecdd';ctx.fillRect(x,y,CELL,CELL);
+        ctx.fillStyle='#c2e0d0';ctx.fillRect(x,y,CELL,CELL);
         ctx.fillStyle='#22cc6622';ctx.fillRect(x,y,CELL,CELL);
         ctx.strokeStyle='#22cc6644';ctx.lineWidth=0.5;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
         ctx.strokeStyle='#11aa5566';ctx.lineWidth=0.8;ctx.setLineDash([4,4]);
@@ -925,17 +958,17 @@ function drawMap(ctx,map,g){
         ctx.moveTo(x+4,y+CELL/2);ctx.lineTo(x+CELL-4,y+CELL/2);ctx.stroke();
         ctx.setLineDash([]);
       } else if(v===0||v===4){
-        ctx.fillStyle='#dde7f0';ctx.fillRect(x,y,CELL,CELL);
+        ctx.fillStyle='#cdd9e6';ctx.fillRect(x,y,CELL,CELL);
         const pulse=(Math.sin(t*0.02+c*0.3+r*0.5)+1)*0.5;
         ctx.fillStyle=`rgba(0,140,200,${0.06+pulse*0.06})`;ctx.fillRect(x+CELL/2-1,y+CELL/2-1,2,2);
         if(v===0){const cs=5;ctx.strokeStyle='rgba(0,140,200,0.15)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(x+cs,y);ctx.lineTo(x,y);ctx.lineTo(x,y+cs);ctx.moveTo(x+CELL-cs,y);ctx.lineTo(x+CELL,y);ctx.lineTo(x+CELL,y+cs);ctx.moveTo(x,y+CELL-cs);ctx.lineTo(x,y+CELL);ctx.lineTo(x+cs,y+CELL);ctx.moveTo(x+CELL,y+CELL-cs);ctx.lineTo(x+CELL,y+CELL);ctx.lineTo(x+CELL-cs,y+CELL);ctx.stroke();}
       } else if(v===2){
-        const bp=(Math.sin(t*0.05)+1)*0.5;ctx.fillStyle='#c6e0f0';ctx.fillRect(x,y,CELL,CELL);
+        const bp=(Math.sin(t*0.05)+1)*0.5;ctx.fillStyle='#b4d4e8';ctx.fillRect(x,y,CELL,CELL);
         ctx.save();ctx.shadowColor='#0099dd';ctx.shadowBlur=8+bp*10;ctx.strokeStyle=`rgba(0,140,210,${0.6+bp*0.4})`;ctx.lineWidth=2;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
         ctx.fillStyle=`rgba(0,150,220,${0.1+bp*0.12})`;ctx.fillRect(x+3,y+3,CELL-6,CELL-6);
         ctx.fillStyle='#0077aa';ctx.font='bold 9px "Share Tech Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('基地',x+CELL/2,y+CELL/2);ctx.restore();
       } else if(v===3){
-        const sp=(Math.sin(t*0.08)+1)*0.5;ctx.fillStyle='#f2d2d8';ctx.fillRect(x,y,CELL,CELL);
+        const sp=(Math.sin(t*0.08)+1)*0.5;ctx.fillStyle='#e8c2ca';ctx.fillRect(x,y,CELL,CELL);
         ctx.save();ctx.shadowColor='#ee3355';ctx.shadowBlur=6+sp*8;ctx.strokeStyle=`rgba(220,50,70,${0.5+sp*0.5})`;ctx.lineWidth=1.5;ctx.strokeRect(x+3,y+3,CELL-6,CELL-6);
         ctx.fillStyle=`rgba(220,50,70,${0.06+sp*0.08})`;ctx.fillRect(x+3,y+3,CELL-6,CELL-6);
         ctx.fillStyle='#cc2233';ctx.font='8px "Share Tech Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('出生',x+CELL/2,y+CELL/2);ctx.restore();
@@ -950,7 +983,7 @@ function drawMap(ctx,map,g){
 // HUD
 // ═══════════════════════════════════════════════════════════════
 function drawHUD(ctx,g){
-  const hudG=ctx.createLinearGradient(0,0,W,0);hudG.addColorStop(0,'rgba(232,240,248,0.96)');hudG.addColorStop(0.5,'rgba(224,234,244,0.96)');hudG.addColorStop(1,'rgba(216,228,240,0.96)');
+  const hudG=ctx.createLinearGradient(0,0,W,0);hudG.addColorStop(0,'rgba(216,228,240,0.97)');hudG.addColorStop(0.5,'rgba(208,220,234,0.97)');hudG.addColorStop(1,'rgba(200,214,230,0.97)');
   ctx.fillStyle=hudG;ctx.fillRect(0,0,W,38);
   ctx.strokeStyle='rgba(0,140,200,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,38);ctx.lineTo(W,38);ctx.stroke();
   ctx.strokeStyle='rgba(0,140,200,0.12)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(0,39);ctx.lineTo(W,39);ctx.stroke();
@@ -1042,12 +1075,13 @@ function openLevelSelect(){
 function backToMenu(){
   document.getElementById('levelOverlay').style.display='none';
   document.getElementById('menuOverlay').style.display='flex';
+  startMenuBg();
 }
 // 迷你地圖預覽
 function drawMiniMap(cv,map){
   const mctx=cv.getContext('2d');
   const cw=cv.width/COLS, ch=cv.height/ROWS;
-  mctx.fillStyle='#e3ecf4';mctx.fillRect(0,0,cv.width,cv.height);
+  mctx.fillStyle='#d4e0ea';mctx.fillRect(0,0,cv.width,cv.height);
   for(let r=0;r<ROWS;r++)for(let cc=0;cc<COLS;cc++){
     const v=map[r][cc];
     if(v===1){mctx.fillStyle='#22cc66';mctx.fillRect(cc*cw,r*ch,cw,ch);}
@@ -1083,7 +1117,7 @@ function startGame(levelIndex){
   loopId=requestAnimationFrame(loop);
 }
 function restartGame(){startGame();}
-function goMainMenu(){if(cdInterval){clearInterval(cdInterval);cdInterval=null;}if(loopId){cancelAnimationFrame(loopId);loopId=null;}hideCD();game=null;['victoryOverlay','gameoverOverlay'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('menuHS').textContent=fmtHS(getHS());document.getElementById('levelOverlay').style.display='none';document.getElementById('menuOverlay').style.display='flex';ctx.fillStyle='#e3ecf4';ctx.fillRect(0,0,W,H);}
+function goMainMenu(){if(cdInterval){clearInterval(cdInterval);cdInterval=null;}if(loopId){cancelAnimationFrame(loopId);loopId=null;}hideCD();game=null;['victoryOverlay','gameoverOverlay'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('menuHS').textContent=fmtHS(getHS());document.getElementById('levelOverlay').style.display='none';document.getElementById('menuOverlay').style.display='flex';ctx.fillStyle='#d4e0ea';ctx.fillRect(0,0,W,H);startMenuBg();}
 function selectTower(t){if(!game)return;game.selType=game.selType===t?null:t;game.selTower=null;updateTB();}
 function upgradeSelected(){
   if(!game||!game.selTower)return;const t=game.selTower;
@@ -1215,12 +1249,12 @@ function loop(){
 // TUTORIAL
 // ═══════════════════════════════════════════════════════════════
 const TUT=[
-  {title:'任務目標',sub:'守住基地，撐過三波進攻',html:`<p class="tut-body">敵人從左側 <span style="color:#ff2244">出生點</span> 出發沿固定路徑前進，目標是到達右側 <span style="color:#00e5ff">基地</span>。每當一隻敵人抵達，基地血量扣 1。歸零即 <span style="color:#ff2244">任務失敗</span>。</p><p class="tut-body">在路徑旁的空格建塔，三波全清即 <span style="color:#00ff88">任務完成</span>。</p><div class="tut-tip">▸ 路徑格和已佔用格無法建塔，只有深色空格可以放置。</div>`},
-  {title:'狀態儀表板',sub:'掌握四個核心數值',html:`<div class="tut-grid2"><div class="tut-box"><p class="tut-box-title" style="color:#ffe000">◆ 金幣</p><p class="tut-box-sub">開局金幣依關卡而定。建塔、升級用，擊殺敵人可獲得更多，以飄字顯示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#00ff88">◉ 基地血量</p><p class="tut-box-sub">基地血量依關卡而定（簡單關較多）。低於 3 時變紅色警示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#00e5ff">◈ 波次</p><p class="tut-box-sub">目前波次 / 總波次，共 3 波。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#cc88ff">◇ 得分</p><p class="tut-box-sub">建塔 +5、升級 +10、擊殺依敵人獎勵計算。</p></div></div><div class="tut-tip">▸ 每波結束後倒數 3 秒自動開始，可點「立即開始」跳過倒數。</div>`},
-  {title:'防禦系統',sub:'三種防禦塔，各有特色',html:`<div class="tut-grid3"><div class="tut-box" style="border-color:#00e5ff18"><p class="tut-box-title" style="color:#00e5ff">⚙ 機槍塔</p><p class="tut-box-sub" style="color:#00e5ff55;margin-bottom:5px">100 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:85%;background:#00e5ff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:40%;background:#00e5ff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:60%;background:#00e5ff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">雙管砲塔 · 曳光彈單體輸出</p></div><div class="tut-box" style="border-color:#ff620018"><p class="tut-box-title" style="color:#ff8844">🔥 火焰塔</p><p class="tut-box-sub" style="color:#ff884455;margin-bottom:5px">150 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:25%;background:#ff8844"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:90%;background:#ff8844"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:45%;background:#ff8844"></div></div></div><p class="tut-box-sub" style="margin-top:5px">噴射砲口 · 火焰範圍爆炸</p></div><div class="tut-box" style="border-color:#44aaff18"><p class="tut-box-title" style="color:#66ccff">❄ 冰霜塔</p><p class="tut-box-sub" style="color:#66ccff55;margin-bottom:5px">120 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:55%;background:#66ccff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:50%;background:#66ccff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:65%;background:#66ccff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">晶體砲口 · 冰晶彈命中減速</p></div></div><div class="tut-warn">▲ 火焰塔攻速極慢，打快速兵效果差，配合冰霜塔先減速再引爆。</div>`},
+  {title:'任務目標',sub:'守住基地，撐過三波進攻',html:`<p class="tut-body">敵人從左側 <span style="color:#ff2244">出生點</span> 出發沿固定路徑前進，目標是到達右側 <span style="color:#0077aa">基地</span>。每當一隻敵人抵達，基地血量扣 1。歸零即 <span style="color:#ff2244">任務失敗</span>。</p><p class="tut-body">在路徑旁的空格建塔，三波全清即 <span style="color:#0a9944">任務完成</span>。</p><div class="tut-tip">▸ 路徑格和已佔用格無法建塔，只有深色空格可以放置。</div>`},
+  {title:'狀態儀表板',sub:'掌握四個核心數值',html:`<div class="tut-grid2"><div class="tut-box"><p class="tut-box-title" style="color:#bb8800">◆ 金幣</p><p class="tut-box-sub">開局金幣依關卡而定。建塔、升級用，擊殺敵人可獲得更多，以飄字顯示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#0a9944">◉ 基地血量</p><p class="tut-box-sub">基地血量依關卡而定（簡單關較多）。低於 3 時變紅色警示。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#0077aa">◈ 波次</p><p class="tut-box-sub">目前波次 / 總波次，共 3 波。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#8855cc">◇ 得分</p><p class="tut-box-sub">建塔 +5、升級 +10、擊殺依敵人獎勵計算。</p></div></div><div class="tut-tip">▸ 每波結束後倒數 3 秒自動開始，可點「立即開始」跳過倒數。</div>`},
+  {title:'防禦系統',sub:'三種防禦塔，各有特色',html:`<div class="tut-grid3"><div class="tut-box" style="border-color:#00e5ff18"><p class="tut-box-title" style="color:#0077aa">⚙ 機槍塔</p><p class="tut-box-sub" style="color:#00e5ff55;margin-bottom:5px">100 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:85%;background:#00e5ff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:40%;background:#00e5ff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:60%;background:#00e5ff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">雙管砲塔 · 曳光彈單體輸出</p></div><div class="tut-box" style="border-color:#ff620018"><p class="tut-box-title" style="color:#ff8844">🔥 火焰塔</p><p class="tut-box-sub" style="color:#ff884455;margin-bottom:5px">150 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:25%;background:#ff8844"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:90%;background:#ff8844"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:45%;background:#ff8844"></div></div></div><p class="tut-box-sub" style="margin-top:5px">噴射砲口 · 火焰範圍爆炸</p></div><div class="tut-box" style="border-color:#44aaff18"><p class="tut-box-title" style="color:#66ccff">❄ 冰霜塔</p><p class="tut-box-sub" style="color:#66ccff55;margin-bottom:5px">120 金幣</p><div class="tut-bar-row">攻速 <div class="tut-bar-bg"><div class="tut-bar" style="width:55%;background:#66ccff"></div></div></div><div class="tut-bar-row">傷害 <div class="tut-bar-bg"><div class="tut-bar" style="width:50%;background:#66ccff"></div></div></div><div class="tut-bar-row">射程 <div class="tut-bar-bg"><div class="tut-bar" style="width:65%;background:#66ccff"></div></div></div><p class="tut-box-sub" style="margin-top:5px">晶體砲口 · 冰晶彈命中減速</p></div></div><div class="tut-warn">▲ 火焰塔攻速極慢，打快速兵效果差，配合冰霜塔先減速再引爆。</div>`},
   {title:'敵方單位',sub:'辨認外型，調整應對方式',html:`<div class="tut-card" style="padding:7px 10px"><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="22,13 17.5,20.8 8.5,20.8 4,13 8.5,5.2 17.5,5.2" fill="#ff33662a" stroke="#ff3366" stroke-width="1.3"/><circle cx="13" cy="13" r="3" fill="#ff3366"/></svg><div style="flex:1"><div style="font-size:11px;color:#ff3366;margin-bottom:2px">普通兵 <span class="tut-badge" style="background:#00ff4425;color:#00aa44;border:1px solid #00aa4444">第 1–3 波</span></div><div style="font-size:10px;color:#446677">血量 100 · 速度 1.0 · 六角機體</div></div><span style="font-size:11px;color:#00aa55">+20G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="23,13 9,19 12,13 9,7" fill="#ee99002a" stroke="#ee9900" stroke-width="1.3"/><polygon points="9,13 3,15.5 3,10.5" fill="#ffcc44"/></svg><div style="flex:1"><div style="font-size:11px;color:#ee9900;margin-bottom:2px">快速兵 <span class="tut-badge" style="background:#ee990018;color:#cc7700;border:1px solid #ee990033">第 2–3 波</span></div><div style="font-size:10px;color:#446677">血量 80 · 速度 1.7 · 梭形(有尾焰)</div></div><span style="font-size:11px;color:#00aa55">+30G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="4" y="5" width="18" height="16" rx="3" fill="#cc44ff2a" stroke="#cc44ff" stroke-width="1.3"/><rect x="4" y="3" width="18" height="2" fill="#cc44ff66"/><rect x="4" y="21" width="18" height="2" fill="#cc44ff66"/><circle cx="13" cy="13" r="3" fill="#cc44ff"/></svg><div style="flex:1"><div style="font-size:11px;color:#cc44ff;margin-bottom:2px">坦克兵 <span class="tut-badge" style="background:#cc44ff18;color:#aa22dd;border:1px solid #cc44ff33">第 3 波</span></div><div style="font-size:10px;color:#446677">血量 300 · 速度 0.55 · 裝甲履帶</div></div><span style="font-size:11px;color:#00aa55">+60G</span></div><div class="tut-enemy-row"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="23,13 19,17 19,22 13,23 7,22 7,17 3,13 7,9 7,4 13,3 19,4 19,9" fill="#ff44002a" stroke="#ff4400" stroke-width="1.3"/><circle cx="13" cy="13" r="3.5" fill="#ff8800"/></svg><div style="flex:1"><div style="font-size:11px;color:#ff4400;margin-bottom:2px">首領 BOSS <span class="tut-badge" style="background:#ff440018;color:#dd3300;border:1px solid #ff440033">第 3 波壓軸</span></div><div style="font-size:10px;color:#446677">血量 1500 · 速度 0.4 · 雙環核心</div></div><span style="font-size:11px;color:#00aa55">+200G</span></div></div><div class="tut-tip">▸ 敵人死亡時有碎片爆炸動畫，金幣飄字同步顯示。</div><div class="tut-tip" style="margin-top:4px">▸ 不同關卡敵人血量/速度會有倍率加成，難度越高越強。</div>`},
-  {title:'建造操作',sub:'建造、升級、賣出',html:`<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px"><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</span><p class="tut-box-sub" style="margin:0">點擊塔種按鈕，滑鼠移到空格，點擊建造。建塔時有<span style="color:#00e5ff">光環爆發動畫</span>與音效。</p></div><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</span><p class="tut-box-sub" style="margin:0">點擊塔可升級（最多 Lv3）。升級有<span style="color:#88ff44">音階上升音效</span>和縮放動畫。</p></div><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</span><p class="tut-box-sub" style="margin:0">傷害數字浮現在敵人上方，擊殺後<span style="color:#ffe000">金幣飄字</span>顯示獎勵。</p></div></div><div class="tut-tip">▸ 🔊 按鈕可隨時關閉音效</div>`},
-  {title:'波次與事件',sub:'三波進攻，難度逐波升高',html:`<table class="tut-wave-table"><thead><tr><th>波次</th><th>組成</th><th>重點</th></tr></thead><tbody><tr><td style="color:#0099dd">第 1 波</td><td style="color:#446677">普通為主</td><td style="color:#00aa55">建立基礎火力</td></tr><tr><td style="color:#cc9900">第 2 波</td><td style="color:#446677">混入快速兵與坦克</td><td style="color:#cc7700">加冰霜控速</td></tr><tr><td style="color:#dd3344">第 3 波</td><td style="color:#446677">坦克群 + 首領 BOSS</td><td style="color:#cc2233">升火焰、集中輸出</td></tr></tbody></table><div class="tut-tip" style="margin:6px 0">▸ 實際數量依關卡而異，難關敵人更多、血量更高。每波開始前的倒數畫面會顯示該波的<span style="color:#cc7700">隨機事件</span>。</div><div class="tut-grid2" style="margin-top:6px"><div class="tut-box"><p class="tut-box-title" style="color:#0088dd">❄+🔥 組合</p><p class="tut-box-sub">冰霜減速後火焰引爆，範圍傷害效益翻倍。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#cc9900">轉角卡位</p><p class="tut-box-sub">路徑轉彎處停留最久，優先在轉角旁建塔。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#449911">升級優先</p><p class="tut-box-sub">Lv3 機槍塔輸出遠勝兩座 Lv1。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#dd5500">應對 BOSS</p><p class="tut-box-sub">BOSS 血厚移動慢，集中冰霜+火焰可有效擊破。</p></div></div>`},
+  {title:'建造操作',sub:'建造、升級、賣出',html:`<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px"><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</span><p class="tut-box-sub" style="margin:0">點擊塔種按鈕，滑鼠移到空格，點擊建造。建塔時有<span style="color:#0077aa">光環爆發動畫</span>與音效。</p></div><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</span><p class="tut-box-sub" style="margin:0">點擊塔可升級（最多 Lv3）。升級有<span style="color:#559911">音階上升音效</span>和縮放動畫。</p></div><div class="tut-box" style="display:flex;align-items:flex-start;gap:8px"><span style="width:18px;height:18px;border-radius:50%;background:#00e5ff28;border:1px solid #00e5ff33;color:#00e5ff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</span><p class="tut-box-sub" style="margin:0">傷害數字浮現在敵人上方，擊殺後<span style="color:#bb8800">金幣飄字</span>顯示獎勵。</p></div></div><div class="tut-tip">▸ 🔊 按鈕可隨時關閉音效</div>`},
+  {title:'波次與事件',sub:'三波進攻，難度逐波升高',html:`<table class="tut-wave-table"><thead><tr><th>波次</th><th>組成</th><th>重點</th></tr></thead><tbody><tr><td style="color:#0099dd">第 1 波</td><td style="color:#446677">普通為主</td><td style="color:#00aa55">建立基礎火力</td></tr><tr><td style="color:#cc9900">第 2 波</td><td style="color:#446677">混入快速兵與坦克</td><td style="color:#cc7700">加冰霜控速</td></tr><tr><td style="color:#dd3344">第 3 波</td><td style="color:#446677">坦克群 + 首領 BOSS</td><td style="color:#cc2233">升火焰、集中輸出</td></tr></tbody></table><div class="tut-tip" style="margin:6px 0">▸ 實際數量依關卡而異，難關敵人更多、血量更高。每波開始前的倒數畫面會顯示該波的<span style="color:#cc7700">隨機事件</span>。</div><div style="font-size:10px;color:#3a6a85;letter-spacing:1px;margin:8px 0 4px">// 隨機事件一覽</div><div class="tut-card" style="padding:6px 10px;margin-bottom:6px"><div class="tut-enemy-row"><span style="font-size:15px;width:22px;text-align:center">⚡</span><div style="flex:1"><span style="font-size:11px;color:#dd3355">急速突擊</span></div><span style="font-size:10px;color:#446677">敵人移動速度 +40%</span></div><div class="tut-enemy-row"><span style="font-size:15px;width:22px;text-align:center">🛡</span><div style="flex:1"><span style="font-size:11px;color:#aa33dd">裝甲強化</span></div><span style="font-size:10px;color:#446677">全敵血量 +60%</span></div><div class="tut-enemy-row"><span style="font-size:15px;width:22px;text-align:center">🌊</span><div style="flex:1"><span style="font-size:11px;color:#cc8800">群狼戰術</span></div><span style="font-size:10px;color:#446677">出兵數量 +60%</span></div><div class="tut-enemy-row"><span style="font-size:15px;width:22px;text-align:center">📡</span><div style="flex:1"><span style="font-size:11px;color:#0088cc">電磁干擾</span></div><span style="font-size:10px;color:#446677">防禦塔攻速降低 30%</span></div><div class="tut-enemy-row"><span style="font-size:15px;width:22px;text-align:center">💉</span><div style="flex:1"><span style="font-size:11px;color:#00aa55">奈米修復</span></div><span style="font-size:10px;color:#446677">敵人每秒回復少量血量</span></div></div><div class="tut-grid2" style="margin-top:6px"><div class="tut-box"><p class="tut-box-title" style="color:#0088dd">❄+🔥 組合</p><p class="tut-box-sub">冰霜減速後火焰引爆，範圍傷害效益翻倍。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#cc9900">轉角卡位</p><p class="tut-box-sub">路徑轉彎處停留最久，優先在轉角旁建塔。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#449911">升級優先</p><p class="tut-box-sub">Lv3 機槍塔輸出遠勝兩座 Lv1。</p></div><div class="tut-box"><p class="tut-box-title" style="color:#dd5500">應對 BOSS</p><p class="tut-box-sub">BOSS 血厚移動慢，集中冰霜+火焰可有效擊破。</p></div></div>`},
 ];
 let tutCur=0;const tutDone=new Set();
 function openTutorial(){tutCur=0;tutDone.clear();document.getElementById('tutOverlay').style.display='flex';tutRender();}
@@ -1234,6 +1268,69 @@ document.addEventListener('keydown',e=>{
     if(game&&!game.gameOver&&!game.victory)togglePause();
   }
 });
+
+// ── 主選單動態背景：浮動節點網絡 ──
+let menuBgRAF=null;
+function startMenuBg(){
+  const cv=document.getElementById('menuBg');
+  if(!cv)return;
+  const mctx=cv.getContext('2d');
+  function resize(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
+  resize();
+  // 節點
+  const N=32, nodes=[];
+  for(let i=0;i<N;i++){
+    nodes.push({x:Math.random()*cv.width,y:Math.random()*cv.height,
+      vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:1+Math.random()*2});
+  }
+  // 資料脈衝 (沿連線移動)
+  const pulses=[];
+  function frame(){
+    if(!cv.offsetParent){menuBgRAF=null;return;} // 選單隱藏時停止
+    if(cv.width!==cv.offsetWidth||cv.height!==cv.offsetHeight)resize();
+    mctx.clearRect(0,0,cv.width,cv.height);
+    // 更新節點
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>cv.width)n.vx*=-1;
+      if(n.y<0||n.y>cv.height)n.vy*=-1;
+    });
+    // 連線 (近距離)
+    const maxD=130;
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
+        const d=Math.hypot(dx,dy);
+        if(d<maxD){
+          const a=(1-d/maxD)*0.22;
+          mctx.strokeStyle='rgba(0,130,190,'+a+')';mctx.lineWidth=0.8;
+          mctx.beginPath();mctx.moveTo(nodes[i].x,nodes[i].y);mctx.lineTo(nodes[j].x,nodes[j].y);mctx.stroke();
+          // 偶爾產生脈衝
+          if(Math.random()<0.0006)pulses.push({a:i,b:j,t:0});
+        }
+      }
+    }
+    // 節點
+    nodes.forEach(n=>{
+      mctx.fillStyle='rgba(0,140,200,0.5)';mctx.shadowColor='#0099dd';mctx.shadowBlur=6;
+      mctx.beginPath();mctx.arc(n.x,n.y,n.r,0,Math.PI*2);mctx.fill();
+    });
+    mctx.shadowBlur=0;
+    // 脈衝移動
+    for(let k=pulses.length-1;k>=0;k--){
+      const p=pulses[k];p.t+=0.03;
+      if(p.t>=1){pulses.splice(k,1);continue;}
+      const na=nodes[p.a],nb=nodes[p.b];
+      const px=na.x+(nb.x-na.x)*p.t, py=na.y+(nb.y-na.y)*p.t;
+      mctx.fillStyle='rgba(0,200,255,0.8)';mctx.shadowColor='#00ccff';mctx.shadowBlur=8;
+      mctx.beginPath();mctx.arc(px,py,2,0,Math.PI*2);mctx.fill();mctx.shadowBlur=0;
+    }
+    menuBgRAF=requestAnimationFrame(frame);
+  }
+  if(!menuBgRAF)frame();
+}
+// 主選單顯示時啟動 (頁面載入 + 返回選單)
+startMenuBg();
 
 // Init: show HS on menu
 document.getElementById('menuHS').textContent=fmtHS(getHS());
